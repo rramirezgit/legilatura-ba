@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { ligthTheme, darkTheme } from "./themes";
+import router from "./routes/Navigator";
+import AuthContext from "./context/Auth";
+import Navigator from "./routes/Navigator";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={ligthTheme}>
+        <CssBaseline />
+        <AuthContext>
+          <Navigator />
+        </AuthContext>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 
