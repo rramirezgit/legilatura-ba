@@ -2,7 +2,6 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ligthTheme, darkTheme } from "./themes";
-import router from "./routes/Navigator";
 import AuthContext from "./context/Auth";
 import Navigator from "./routes/Navigator";
 

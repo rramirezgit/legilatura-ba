@@ -1,14 +1,23 @@
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import CustomNoRowsOverlay from "./CustomComponentTable";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Table({ data, from, columns, dataRows, style }) {
+export default function Table({
+  data,
+  from,
+  columns,
+  dataRows,
+  style,
+  isCellEditable,
+}) {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div style={style}>
       <DataGrid
         disableDensitySelector
+        isCellEditable={isCellEditable}
         localeText={{
           toolbarColumns: "Columnas",
           toolbarFilters: "Filtros",
@@ -28,8 +37,10 @@ export default function Table({ data, from, columns, dataRows, style }) {
         columns={columns}
         disableSelectionOnClick={from === "admin-cert"}
         onRowClick={(params) => {
-          if (params.row.estado === "B") {
-            navigate(`/administracion_certificaciones/${params.row.id}`);
+          if (location.pathname === "/") {
+            navigate(`/administracion_certificaciones/${params.row.id}`, {
+              state: { data: params.row },
+            });
           }
         }}
       />

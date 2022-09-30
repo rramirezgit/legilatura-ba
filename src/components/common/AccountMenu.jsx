@@ -30,6 +30,7 @@ export default function AccountMenu() {
       title: "Seguro que desea salir?",
       icon: "warning",
       showCloseButton: true,
+      confirmButtonText: "Si",
       showCancelButton: true,
       focusCancel: true,
       confirmButtonAriaLabel: "Thumbs up, great!",
