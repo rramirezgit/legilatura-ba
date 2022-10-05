@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Table from "../components/common/Table";
 import AppLayout from "../components/layouts/AppLayout";
 import { AuthContextTheme } from "../context/Auth";
@@ -31,6 +31,7 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date(location.state.data.periodo));
   const [state, setState] = useState(location.state.data.estado);
   const permissions = usePermissions(location.state.data.estado);
+  const navigate = useNavigate()
 
   useEffect(() => {
     switch (location.state.data.estado) {
@@ -92,19 +93,41 @@ export default function Certificaciones() {
     },
   ];
 
-  const changeState = () => {
+  const handleSign = () => {
     Swal.fire({
       title: "Seguro que desea Firmar?",
       icon: "warning",
       showCloseButton: true,
       showCancelButton: true,
       confirmButtonText: "Si",
+      cancelButtonText: "No",
       focusCancel: true,
       confirmButtonAriaLabel: "Thumbs up, great!",
       cancelButtonAriaLabel: "Thumbs down",
     }).then((result) => {
       if (result.isConfirmed) {
         setState("I");
+        navigate("/")
+      }
+    });
+  };
+
+  const handleSave = () => {
+    Swal.fire({
+      title: "Seguro que desea Guardar?",
+      icon: "warning",
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      focusCancel: true,
+      confirmButtonAriaLabel: "Thumbs up, great!",
+      cancelButtonAriaLabel: "Thumbs down",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setState("I");
+        navigate("/")
+
       }
     });
   };
@@ -122,7 +145,7 @@ export default function Certificaciones() {
           <DatePicker
             views={["year", "month"]}
             openTo="month"
-            label="Período"
+            label="Período de la Certificación"
             value={periodo}
             onChange={(newValue) => {
               setPeriodo(newValue);
@@ -157,15 +180,15 @@ export default function Certificaciones() {
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
             />
             {permissions.canChangeState && (
-              <FormControl style={{ width: 300 }}>
+              <FormControl style={{ width: 200 }}>
                 <InputLabel id="demo-simple-select-label">Estado</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Estado"
+                  label="Acción"
                 >
-                  <MenuItem value={10}>Aceptado</MenuItem>
-                  <MenuItem value={20}>Rechazado</MenuItem>
+                  <MenuItem value={10}>Aceptar</MenuItem>
+                  <MenuItem value={20}>Rechazar</MenuItem>
                 </Select>
               </FormControl>
             )}
@@ -174,7 +197,7 @@ export default function Certificaciones() {
               <Button
                 sx={{ float: "right", margin: "10px 5px" }}
                 variant="contained"
-                onClick={changeState}
+                onClick={handleSign}
               >
                 Firmar
               </Button>
@@ -182,6 +205,7 @@ export default function Certificaciones() {
             <Button
               sx={{ float: "right", margin: "10px 5px" }}
               variant="contained"
+              onClick={handleSave}
             >
               Guardar
             </Button>

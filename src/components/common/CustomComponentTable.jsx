@@ -58,7 +58,7 @@ export default function CustomNoRowsOverlay() {
         </defs>
       </svg>
 
-      <Box sx={{ mt: 1 }}>Debe seleccionar un período</Box>
+      <Box sx={{ mt: 1 }}>Debe seleccionar el período de Certificación a Gestionar</Box>
     </StyledGridOverlay>
   );
 }

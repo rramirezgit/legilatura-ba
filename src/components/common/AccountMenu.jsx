@@ -27,10 +27,11 @@ export default function AccountMenu() {
 
   const handleLogout = () => {
     Swal.fire({
-      title: "Seguro que desea salir?",
+      title: "Está seguro que desea salir?",
       icon: "warning",
       showCloseButton: true,
       confirmButtonText: "Si",
+      cancelButtonText: "No",
       showCancelButton: true,
       focusCancel: true,
       confirmButtonAriaLabel: "Thumbs up, great!",

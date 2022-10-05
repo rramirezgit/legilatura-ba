@@ -76,7 +76,7 @@ export default function Certificaciones() {
           <DatePicker
             views={["year", "month"]}
             openTo="month"
-            label="Período"
+            label="Período de la Certificación"
             value={periodo}
             onChange={(newValue) => {
               setPeriodo(newValue);
@@ -109,15 +109,15 @@ export default function Certificaciones() {
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
             />
             {user.role === "RRHH" && new Date().getMonth() === new Date(periodo).getMonth() &&  (
-              <FormControl style={{ width: 300 }}>
-                <InputLabel id="demo-simple-select-label">Estado</InputLabel>
+              <FormControl style={{ width: 400 }}>
+                <InputLabel id="demo-simple-select-label">Acción Certificación</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Estado"
+                  label="Acción Certificación"
                 >
-                  <MenuItem value={10}>Aceptado</MenuItem>
-                  <MenuItem value={20}>Rechazado</MenuItem>
+                  <MenuItem value={10}>Aceptar</MenuItem>
+                  <MenuItem value={20}>Rechazar</MenuItem>
                 </Select>
               </FormControl>
             )}
