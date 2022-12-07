@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -31,7 +32,7 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date(location.state.data.periodo));
   const [state, setState] = useState(location.state.data.estado);
   const permissions = usePermissions(location.state.data.estado);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     switch (location.state.data.estado) {
@@ -50,6 +51,14 @@ export default function Certificaciones() {
       default:
     }
   }, [location.state.data.estado]);
+
+  // One time slot every 30 minutes.
+  const timeSlots = Array.from(new Array(24 * 2)).map(
+    (_, index) =>
+      `${index < 20 ? "0" : ""}${Math.floor(index / 2)}:${
+        index % 2 === 0 ? "00" : "30"
+      }`
+  );
 
   const colums = [
     {
@@ -75,9 +84,26 @@ export default function Certificaciones() {
     {
       field: "horario",
       headerName: "Horario",
-      type: "dateTime",
-      width: 160,
-      editable: true,
+      type: "actions",
+      getActions: ({ row }) => [
+        <Autocomplete
+          options={timeSlots}
+          sx={{ width: 100 }}
+          value={row?.from}
+          disableClearable
+          readOnly
+          renderInput={(params) => <TextField {...params} value={row?.from} />}
+        />,
+        <Autocomplete
+          options={timeSlots}
+          value={row?.to}
+          sx={{ width: 100 }}
+          disableClearable
+          readOnly
+          renderInput={(params) => <TextField {...params} value={row?.to} />}
+        />,
+      ],
+      width: 250,
     },
     {
       field: "novedades",
@@ -107,7 +133,7 @@ export default function Certificaciones() {
     }).then((result) => {
       if (result.isConfirmed) {
         setState("I");
-        navigate("/")
+        navigate("/");
       }
     });
   };
@@ -126,8 +152,7 @@ export default function Certificaciones() {
     }).then((result) => {
       if (result.isConfirmed) {
         setState("I");
-        navigate("/")
-
+        navigate("/");
       }
     });
   };

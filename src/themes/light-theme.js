@@ -20,5 +20,10 @@ export const ligthTheme = createTheme({
         },
       },
     },
-  }
+    MuiTextField: {
+      styleOverrides: {
+        disabled: {},
+      },
+    },
+  },
 });

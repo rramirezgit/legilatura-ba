@@ -17,6 +17,8 @@ export default function Table({
     <div style={style}>
       <DataGrid
         disableDensitySelector
+        hideFooterSelectedRowCount
+        checkboxSelection={location.pathname !== "/"}
         isCellEditable={isCellEditable}
         localeText={{
           toolbarColumns: "Columnas",

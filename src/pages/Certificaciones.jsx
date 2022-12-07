@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -20,6 +21,14 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(null);
   const [rows, setRows] = useState(false);
   const { user } = useContext(AuthContextTheme);
+
+  // One time slot every 30 minutes.
+  const timeSlots = Array.from(new Array(24 * 2)).map(
+    (_, index) =>
+      `${index < 20 ? "0" : ""}${Math.floor(index / 2)}:${
+        index % 2 === 0 ? "00" : "30"
+      }`
+  );
 
   const colums = [
     {
@@ -45,9 +54,26 @@ export default function Certificaciones() {
     {
       field: "horario",
       headerName: "Horario",
-      type: "dateTime",
-      width: 160,
-      editable: true,
+      type: "actions",
+      getActions: ({ row }) => [
+        <Autocomplete
+          options={timeSlots}
+          sx={{ width: 100 }}
+          value={row?.from}
+          readOnly={new Date().getMonth() !== new Date(periodo).getMonth()}
+          disableClearable
+          renderInput={(params) => <TextField {...params} value={row?.from} />}
+        />,
+        <Autocomplete
+          options={timeSlots}
+          value={row?.to}
+          readOnly={new Date().getMonth() !== new Date(periodo).getMonth()}
+          sx={{ width: 100 }}
+          disableClearable
+          renderInput={(params) => <TextField {...params} value={row?.to} />}
+        />,
+      ],
+      width: 250,
     },
     {
       field: "novedades",
@@ -108,19 +134,22 @@ export default function Certificaciones() {
               dataRows={rows ? dataCertificaciones : []}
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
             />
-            {user.role === "RRHH" && new Date().getMonth() === new Date(periodo).getMonth() &&  (
-              <FormControl style={{ width: 400 }}>
-                <InputLabel id="demo-simple-select-label">Acción Certificación</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="Acción Certificación"
-                >
-                  <MenuItem value={10}>Aceptar</MenuItem>
-                  <MenuItem value={20}>Rechazar</MenuItem>
-                </Select>
-              </FormControl>
-            )}
+            {user.role === "RRHH" &&
+              new Date().getMonth() === new Date(periodo).getMonth() && (
+                <FormControl style={{ width: 400 }}>
+                  <InputLabel id="demo-simple-select-label">
+                    Acción Certificación
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Acción Certificación"
+                  >
+                    <MenuItem value={10}>Aceptar</MenuItem>
+                    <MenuItem value={20}>Rechazar</MenuItem>
+                  </Select>
+                </FormControl>
+              )}
 
             {user.role === "Director" &&
               new Date().getMonth() === new Date(periodo).getMonth() && (
