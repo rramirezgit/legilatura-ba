@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useContext, useState } from "react";
+import { DateRange } from "../components/common/DateRange";
 import Table from "../components/common/Table";
 import AppLayout from "../components/layouts/AppLayout";
 import { AuthContextTheme } from "../context/Auth";
@@ -21,14 +22,6 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(null);
   const [rows, setRows] = useState(false);
   const { user } = useContext(AuthContextTheme);
-
-  // One time slot every 30 minutes.
-  const timeSlots = Array.from(new Array(24 * 2)).map(
-    (_, index) =>
-      `${index < 20 ? "0" : ""}${Math.floor(index / 2)}:${
-        index % 2 === 0 ? "00" : "30"
-      }`
-  );
 
   const colums = [
     {
@@ -55,24 +48,7 @@ export default function Certificaciones() {
       field: "horario",
       headerName: "Horario",
       type: "actions",
-      getActions: ({ row }) => [
-        <Autocomplete
-          options={timeSlots}
-          sx={{ width: 100 }}
-          value={row?.from}
-          readOnly={new Date().getMonth() !== new Date(periodo).getMonth()}
-          disableClearable
-          renderInput={(params) => <TextField {...params} value={row?.from} />}
-        />,
-        <Autocomplete
-          options={timeSlots}
-          value={row?.to}
-          readOnly={new Date().getMonth() !== new Date(periodo).getMonth()}
-          sx={{ width: 100 }}
-          disableClearable
-          renderInput={(params) => <TextField {...params} value={row?.to} />}
-        />,
-      ],
+      getActions: ({ row }) => DateRange(row),
       width: 250,
     },
     {
