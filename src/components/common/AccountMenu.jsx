@@ -45,7 +45,7 @@ export default function AccountMenu() {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Chip label={user.role} variant="outlined" />
+        <Chip label={user.ProfileDesc} variant="outlined" />
         <IconButton
           aria-label="account of current user"
           aria-controls="menu-appbar"
@@ -53,7 +53,7 @@ export default function AccountMenu() {
           onClick={handleClick}
           color="inherit"
         >
-          <Avatar>{user.username.slice(0, 2)}</Avatar>
+          <Avatar>{user.DisplayName.slice(0, 2)}</Avatar>
         </IconButton>
       </Box>
       <Menu

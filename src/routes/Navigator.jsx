@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthContextTheme } from "../context/Auth";
 import Certificaciones from "../pages/Certificaciones";
 import CertificacionesById from "../pages/CertificacionesById";
-import Inbox from "../pages/Inbox";
+import ListaTramites from "../pages/listaTramites";
 import Login from "../pages/login";
 
 const Navigator = () => {
@@ -14,7 +14,7 @@ const Navigator = () => {
           path="/"
           element={
             <ProtectedRoute>
-              <Inbox />
+              <ListaTramites />
             </ProtectedRoute>
           }
         />

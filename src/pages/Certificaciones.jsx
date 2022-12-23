@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Box,
   Button,
   FormControl,
@@ -8,7 +7,6 @@ import {
   Paper,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useContext, useState } from "react";
@@ -88,6 +86,7 @@ export default function Certificaciones() {
               <TextField variant="standard" {...params} />
             )}
           />
+          {!rows && <Button variant="contained">Nueva Certificacion</Button>}
         </Box>
         <Box
           sx={{
@@ -110,7 +109,7 @@ export default function Certificaciones() {
               dataRows={rows ? dataCertificaciones : []}
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
             />
-            {user.role === "RRHH" &&
+            {user.ProfileDesc === "RRHH" &&
               new Date().getMonth() === new Date(periodo).getMonth() && (
                 <FormControl style={{ width: 400 }}>
                   <InputLabel id="demo-simple-select-label">
@@ -127,7 +126,7 @@ export default function Certificaciones() {
                 </FormControl>
               )}
 
-            {user.role === "Director" &&
+            {user.ProfileDesc === "Director" &&
               new Date().getMonth() === new Date(periodo).getMonth() && (
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}

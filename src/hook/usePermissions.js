@@ -3,7 +3,7 @@ import { AuthContextTheme } from "../context/Auth";
 
 const usePermissions = (state) => {
   const {
-    user: { role },
+    user: { ProfileDesc },
   } = useContext(AuthContextTheme);
   const [permissions, setPermissions] = useState({
     canEdit: false,
@@ -13,12 +13,12 @@ const usePermissions = (state) => {
 
   useEffect(() => {
     setPermissions({
-      canEdit: role !== "RRHH" && state === "B",
-      canChangeState: role === "RRHH" && state === "I",
-      canSee: role === "RRHH" && state !== "B",
-      canSign: role === "Director" && state === "B",
+      canEdit: ProfileDesc !== "RRHH" && state === "B",
+      canChangeState: ProfileDesc === "RRHH" && state === "I",
+      canSee: ProfileDesc === "RRHH" && state !== "B",
+      canSign: ProfileDesc === "Director" && state === "B",
     });
-  }, [role, state]);
+  }, [ProfileDesc, state]);
 
   return permissions;
 };

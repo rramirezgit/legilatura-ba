@@ -8,22 +8,34 @@ import { useNavigate } from "react-router-dom";
 import { AuthContextTheme } from "../../context/Auth";
 import { Users } from "../../mock/data";
 import logo from "../../imgs/logo.svg";
+import { login } from "../../services";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContextTheme);
+  const { loginContex } = useContext(AuthContextTheme);
 
-  const validateUser = (values) => {
+  const validateUser = async (values) => {
+    // Se comenta porque aun no responde el servicio de login
+    // login(values.usuario, values.password)
+    //   .then((res) => {
+    //   console.log(res);
+    // })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     const user = Users.find(
       (user) =>
-        user.username === values.usuario && user.password === values.password
+        user.DisplayName === values.usuario && user.password === values.password
     );
+
     if (user) {
-      login({
-        username: values.usuario,
+      loginContex({
+        DisplayName: values.usuario,
         password: values.password,
-        role: user.role,
-        dependencias: user.dependencias,
+        ProfileDesc: user.ProfileDesc,
+        DependencyDesc: user.DependencyDesc,
+        Cuil: user.Cuil,
         name: user.name,
       });
       return true;
@@ -61,7 +73,7 @@ const Login = () => {
             })}
           >
             {(formik) => (
-              <Form onSubmit={formik.handleSubmit} autoComplete={false}>
+              <Form onSubmit={formik.handleSubmit} autoComplete={"false"}>
                 <Box
                   width={{ xs: 354, sm: 400 }}
                   height={{ xs: 504 }}

@@ -14,7 +14,7 @@ const AuthContext = (props) => {
     }
   }, []);
 
-  const login = (user) => {
+  const loginContex = (user) => {
     const userString = JSON.stringify(user);
     sessionStorage.setItem("user", userString);
     setUser(user);
@@ -32,7 +32,7 @@ const AuthContext = (props) => {
       value={{
         user,
         isAuthenticated,
-        login,
+        loginContex,
         logout,
       }}
     >

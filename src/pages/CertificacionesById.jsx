@@ -19,6 +19,8 @@ import { AuthContextTheme } from "../context/Auth";
 import { certificacionesByIdData } from "../mock/data";
 import usePermissions from "../hook/usePermissions";
 import Swal from "sweetalert2";
+import ReactPDF from "@react-pdf/renderer";
+import MyDocument from "../components/common/MyDocument";
 
 /*+-----------------------------------------------------------------------------------------+
   Este componente es el que se encarga de mostrar la tabla de certificaciones por id
@@ -132,8 +134,12 @@ export default function Certificaciones() {
       cancelButtonAriaLabel: "Thumbs down",
     }).then((result) => {
       if (result.isConfirmed) {
-        setState("I");
-        navigate("/");
+        // setState("I");
+        // navigate("/");
+        console.log("yes");
+        // console.log("navegadok")
+
+        ReactPDF.render(<MyDocument />, `${__dirname}/example.pdf`);
       }
     });
   };

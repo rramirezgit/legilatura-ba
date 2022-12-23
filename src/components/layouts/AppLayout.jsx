@@ -106,7 +106,7 @@ export default function AppLayout({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Dependencias:{user.dependencias}
+            Dependencias:{user.DependencyDesc}
           </Typography>
           <AccountMenu />
         </Toolbar>
