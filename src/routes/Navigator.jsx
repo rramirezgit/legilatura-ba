@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthContextTheme } from "../context/Auth";
-import Certificaciones from "../pages/Certificaciones";
+import Certificaciones from "../pages/certificaciones";
 import CertificacionesById from "../pages/CertificacionesById";
 import ListaTramites from "../pages/listaTramites";
 import Login from "../pages/login";

@@ -26,7 +26,7 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function CustomNoRowsOverlay() {
+export default function CustomNoRowsOverlay({ Message }) {
   return (
     <StyledGridOverlay>
       <svg
@@ -58,7 +58,7 @@ export default function CustomNoRowsOverlay() {
         </defs>
       </svg>
 
-      <Box sx={{ mt: 1 }}>Debe seleccionar el período de Certificación a Gestionar</Box>
+      <Box sx={{ mt: 1 }}>{Message}</Box>
     </StyledGridOverlay>
   );
 }

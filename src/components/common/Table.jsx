@@ -9,6 +9,7 @@ export default function Table({
   columns,
   dataRows,
   style,
+  EmptyMessage,
   isCellEditable,
 }) {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function Table({
           toolbarExport: "Exportar",
         }}
         components={{
-          NoRowsOverlay: CustomNoRowsOverlay,
+          NoRowsOverlay: () => CustomNoRowsOverlay({ Message: EmptyMessage }),
           Toolbar: from === "admin-cert" ? undefined : GridToolbar,
         }}
         componentsProps={{
