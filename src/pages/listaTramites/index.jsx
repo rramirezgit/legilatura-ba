@@ -33,7 +33,7 @@ export default function ListaTramites() {
             <Table
               columns={columnsInbox}
               EmptyMessage="No hay datos"
-              dataRows={inboxData}
+              dataRows={rows}
               style={{ height: "calc(100vh - 130px)", width: "100%" }}
             />
           </Paper>

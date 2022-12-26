@@ -2,6 +2,10 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
 });
 /* API para autenticar en AD y verificar si tiene perfil asignado y los datos relacionados al usuario. */
 export const login = (login, password) => {
