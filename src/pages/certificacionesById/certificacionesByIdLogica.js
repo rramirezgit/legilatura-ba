@@ -1,55 +1,32 @@
 import Swal from "sweetalert2";
 import {
+  detailCertificationList,
   editDetailCertificationList,
-  masterCertificationList,
-  newMasterCertification,
 } from "../../services";
 
-export const getMasterCertificationList = async ({
-  cuil,
-  periodo,
-  fnSetPeriodo = null,
-  fnSetRows,
-}) => {
-  if (fnSetPeriodo) {
-    fnSetPeriodo(periodo);
-  }
-  masterCertificationList(cuil)
-    .then((response) => {
-      console.log(response);
-      if (response.length > 0) {
-        fnSetRows(filtraPeriodo(response, periodo));
-      } else {
-        fnSetRows([]);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      fnSetRows([]);
-    });
+export const handleSign = (navigate, handlePrint) => {
+  Swal.fire({
+    title: "Seguro que desea Firmar?",
+    icon: "warning",
+    showCloseButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Si",
+    cancelButtonText: "No",
+    focusCancel: true,
+    confirmButtonAriaLabel: "Thumbs up, great!",
+    cancelButtonAriaLabel: "Thumbs down",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // setState("I");
+      // navigate("/");
+      console.log("yes");
+      handlePrint();
+      // console.log("navegadok")
+    }
+  });
 };
 
-const filtraPeriodo = (data, periodo) => {
-  return data.filter((item) => item.periodo === periodo);
-};
-
-export const postMasterCertification = async ({ data, fnSetRows }) => {
-  newMasterCertification(data)
-    .then((response) => {
-      if (Object.keys(response).length > 0) {
-        getMasterCertificationList({
-          cuil: data.cuil,
-          periodo: data.periodo,
-          fnSetRows,
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const handleSave = (data) => {
+export const handleSave = (navigate, data) => {
   Swal.fire({
     title: "Seguro que desea Guardar?",
     icon: "warning",
@@ -70,7 +47,6 @@ export const handleSave = (data) => {
             novedad: item.novedades,
             estado: `${item.certificado}`,
           };
-
           return editDetailCertificationList(item.id, body);
         })
       )
@@ -85,6 +61,7 @@ export const handleSave = (data) => {
             focusCancel: true,
           }).then((result) => {
             if (result.isConfirmed) {
+              navigate("/");
             }
           });
         })
@@ -99,9 +76,26 @@ export const handleSave = (data) => {
             focusCancel: true,
           }).then((result) => {
             if (result.isConfirmed) {
+              navigate("/");
             }
           });
         });
     }
   });
+};
+
+export const getDetailCertificationList = async (id, fnSetRows) => {
+  detailCertificationList(id)
+    .then((response) => {
+      console.log(response);
+      if (response.length > 0) {
+        fnSetRows(response);
+      } else {
+        fnSetRows([]);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      fnSetRows([]);
+    });
 };

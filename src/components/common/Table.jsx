@@ -4,9 +4,9 @@ import CustomNoRowsOverlay from "./CustomComponentTable";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Table({
-  data,
   from,
   columns,
+  onSelectionModelChange,
   dataRows,
   style,
   EmptyMessage,
@@ -46,6 +46,7 @@ export default function Table({
             });
           }
         }}
+        onSelectionModelChange={onSelectionModelChange}
       />
     </div>
   );

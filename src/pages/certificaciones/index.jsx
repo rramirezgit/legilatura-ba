@@ -9,16 +9,16 @@ import {
   TextField,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
-import MyDocument from "../../components/common/MyDocument";
+import MyDocument from "../../components/common/myDocument";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
-import { dataCertificaciones } from "../../mock/data";
 import {
   getMasterCertificationList,
+  handleSave,
   postMasterCertification,
 } from "./certificacionesLogica";
 import { colums } from "./columns";
@@ -27,12 +27,8 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(null);
   const [rows, setRows] = useState([]);
   const { user } = useContext(AuthContextTheme);
-
+  const [selectedRows, setSelectedRows] = useState([]);
   const componentRef = useRef();
-
-  useEffect(() => {
-    console.log({ rows });
-  }, [rows]);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -65,10 +61,6 @@ export default function Certificaciones() {
       fnSetRows: setRows,
     });
   }, []);
-
-  useEffect(() => {
-    console.log({ periodo });
-  }, [periodo]);
 
   return (
     <>
@@ -130,6 +122,13 @@ export default function Certificaciones() {
         >
           <Paper elevation={3}>
             <Table
+              onSelectionModelChange={(ids) => {
+                const selectedIDs = new Set(ids);
+                const selectedRows = rows.filter((row) =>
+                  selectedIDs.has(row.id)
+                );
+                setSelectedRows(selectedRows);
+              }}
               from="admin-cert"
               EmptyMessage="No hay datos"
               columns={colums}
@@ -172,6 +171,7 @@ export default function Certificaciones() {
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
+                  onClick={() => handleSave(selectedRows)}
                 >
                   Guardar
                 </Button>
@@ -184,7 +184,7 @@ export default function Certificaciones() {
           display: "none",
         }}
       >
-        <MyDocument referencia={componentRef} />
+        <MyDocument referencia={componentRef} rows={rows} />
       </div>
     </>
   );
