@@ -1,8 +1,52 @@
-import axios from "axios";
+// import axios from "axios";
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-});
+// const api = axios.create({
+//   baseURL: process.env.REACT_APP_API_URL,
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// });
+
+/* api con fetch */
+
+const api = {
+  get: async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  },
+  post: async (url, data) => {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const dataResponse = await response.json();
+    return dataResponse;
+  },
+  put: async (url, data) => {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const dataResponse = await response.json();
+    return dataResponse;
+  },
+  delete: async (url) => {
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+    const dataResponse = await response.json();
+    return dataResponse;
+  },
+};
+
 /* API para autenticar en AD y verificar si tiene perfil asignado y los datos relacionados al usuario. */
 export const login = (login, password) => {
   return api.post("api/UserAccess", { login, password });
