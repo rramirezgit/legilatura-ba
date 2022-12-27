@@ -21,7 +21,10 @@ const api = {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        "Cors-Access-Control-Allow-Origin": "*",
+        "no-cors": "*",
       },
     });
     const dataResponse = await response.json();
