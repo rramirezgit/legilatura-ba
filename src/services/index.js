@@ -20,11 +20,9 @@ const api = {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        "Cors-Access-Control-Allow-Origin": "*",
-        "no-cors": "*",
       },
     });
     const dataResponse = await response.json();
