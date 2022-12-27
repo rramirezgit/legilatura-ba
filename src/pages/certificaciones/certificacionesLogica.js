@@ -76,32 +76,27 @@ export const handleSave = (data) => {
       )
         .then((response) => {
           console.log(response);
-          Swal.fire({
-            title: "Guardado Correctamente",
-            icon: "success",
-            showCloseButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Ok",
-            focusCancel: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-            }
-          });
+          message("Guardado con exito", "success", () => {});
         })
         .catch((error) => {
           console.log(error);
-          Swal.fire({
-            title: "Error al Guardar",
-            icon: "error",
-            showCloseButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Ok",
-            focusCancel: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-            }
-          });
+          message("Error al guardar", "error", () => {});
         });
+    }
+  });
+};
+
+const message = (title, icon, fn) => {
+  Swal.fire({
+    title,
+    icon,
+    showCloseButton: true,
+    showCancelButton: false,
+    confirmButtonText: "Ok",
+    focusCancel: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fn();
     }
   });
 };
