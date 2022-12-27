@@ -100,6 +100,7 @@ export default function Certificaciones() {
                     cuitCertificante: user.Cuil,
                     estado: "B",
                     tipoTramite: "Certificacion",
+                    fechaCreacion: new Date().toISOString(),
                   },
                   fnSetRows: setRows,
                 });
