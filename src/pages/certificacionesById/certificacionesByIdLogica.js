@@ -88,8 +88,8 @@ export const getDetailCertificationList = async (id, fnSetRows) => {
   detailCertificationList(id)
     .then((response) => {
       console.log(response);
-      if (response.length > 0) {
-        fnSetRows(response);
+      if (response.statusText === "OK") {
+        fnSetRows(response.data);
       } else {
         fnSetRows([]);
       }
