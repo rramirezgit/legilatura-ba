@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import {
-  AllMasterCertification,
+  detailCertificationList,
   editDetailCertificationList,
   masterCertificationList,
   newMasterCertification,
@@ -15,12 +15,11 @@ export const getMasterCertificationList = async ({
   if (fnSetPeriodo) {
     fnSetPeriodo(periodo);
   }
-  AllMasterCertification()
+  masterCertificationList(cuil)
     .then((response) => {
-      console.log(response);
       if (response.statusText === "OK") {
         if (response.data.length) {
-          fnSetRows(filtraPeriodo(response.data, periodo));
+          getDetailsByIdList({ data: response.data, periodo, fnSetRows });
         } else {
           fnSetRows([]);
         }
@@ -32,6 +31,25 @@ export const getMasterCertificationList = async ({
       console.log(error);
       fnSetRows([]);
     });
+};
+
+const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
+  let dataFiltered = filtraPeriodo(data, periodo);
+  let idList = [];
+  if (dataFiltered.length) {
+    idList = dataFiltered.map((item) => item.id);
+    Promise.all(
+      idList.map((id) => {
+        return detailCertificationList(id);
+      })
+    ).then((response) => {
+      debugger;
+      let data = response.map((item) => {
+        return item.data[0];
+      });
+      fnSetRows(data);
+    });
+  }
 };
 
 const filtraPeriodo = (data, periodo) => {
