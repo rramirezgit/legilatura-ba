@@ -96,7 +96,7 @@ export default function Certificaciones() {
                 postMasterCertification({
                   data: {
                     periodo: new Date().toISOString().slice(0, 7),
-                    dependencia: user.DependencyDesc,
+                    dependencia: user.IdDependency,
                     cuitCertificante: user.Cuil,
                     estado: "B",
                     tipoTramite: "Certificacion",
