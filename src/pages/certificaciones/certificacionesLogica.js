@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import {
+  AllMasterCertification,
   editDetailCertificationList,
   masterCertificationList,
   newMasterCertification,
@@ -14,11 +15,15 @@ export const getMasterCertificationList = async ({
   if (fnSetPeriodo) {
     fnSetPeriodo(periodo);
   }
-  masterCertificationList(cuil)
+  AllMasterCertification()
     .then((response) => {
       console.log(response);
-      if (response.length > 0) {
-        fnSetRows(filtraPeriodo(response, periodo));
+      if (response.statusText === "OK") {
+        if (response.data.length) {
+          fnSetRows(filtraPeriodo(response.data, periodo));
+        } else {
+          fnSetRows([]);
+        }
       } else {
         fnSetRows([]);
       }

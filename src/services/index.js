@@ -43,6 +43,10 @@ export const newMasterCertification = (data) => {
 export const editMasterCertification = (id, data) => {
   return api.put(`api/MasterCertification/${id}`, data);
 };
+
+export const AllMasterCertification = () => {
+  return api.get(`api/MasterCertification`);
+};
 /* Elimina una certificación */
 export const deleteMasterCertification = (id) => {
   return api.delete(`api/MasterCertification/${id}`);

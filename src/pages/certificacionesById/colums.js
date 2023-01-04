@@ -31,7 +31,6 @@ export const colums = [
         sx={{ width: 100 }}
         value={row?.horario.split("-")[0]}
         disableClearable
-        readOnly
         renderInput={(params) => (
           <TextField {...params} value={row?.horario.split("-")[0]} />
         )}
@@ -41,7 +40,6 @@ export const colums = [
         value={row?.horario.split("-")[1]}
         sx={{ width: 100 }}
         disableClearable
-        readOnly
         renderInput={(params) => (
           <TextField {...params} value={row?.horario.split("-")[1]} />
         )}
