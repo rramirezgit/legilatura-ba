@@ -10,18 +10,20 @@ export const getListaTramites = (cuil, setRows) => {
         if (response.data.length === 0) {
           setRows([]);
         } else {
-          let data = {
-            ...response.data,
-            fechaCreacion: response?.data?.fechaCreacion
-              ? fromatDate(response.data.fechaCreacion)
-              : null,
-            fechaCertificacion: response?.data?.fechaCertificacion
-              ? fromatDate(response.data.fechaCertificacion)
-              : null,
-            fechaDecision: response?.data?.fechaDecision
-              ? fromatDate(response.data.fechaDecision)
-              : null,
-          };
+          let data = response.data.map((item) => {
+            return {
+              ...item,
+              fechaCreacion: item?.fechaCreacion
+                ? fromatDate(item.fechaCreacion)
+                : null,
+              fechaCertificacion: item?.fechaCertificacion
+                ? fromatDate(item.fechaCertificacion)
+                : null,
+              fechaDecision: item?.fechaDecision
+                ? fromatDate(item.fechaDecision)
+                : null,
+            };
+          });
 
           setRows(data);
         }
