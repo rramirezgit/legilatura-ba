@@ -93,7 +93,6 @@ export default function Certificaciones() {
             <Button
               variant="contained"
               onClick={() => {
-debugger
                 postMasterCertification({
                   data: {
                     periodo: new Date().toISOString().slice(0, 7),

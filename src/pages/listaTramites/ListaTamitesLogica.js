@@ -15,13 +15,13 @@ export const getListaTramites = (cuil, setRows) => {
               ...item,
               fechaCreacion: item?.fechaCreacion
                 ? fromatDate(item.fechaCreacion)
-                : null,
+                : "-",
               fechaCertificacion: item?.fechaCertificacion
                 ? fromatDate(item.fechaCertificacion)
-                : null,
+                : "-",
               fechaDecision: item?.fechaDecision
                 ? fromatDate(item.fechaDecision)
-                : null,
+                : "-",
             };
           });
 
