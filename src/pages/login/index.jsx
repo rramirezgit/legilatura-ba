@@ -36,6 +36,7 @@ const Login = () => {
         ProfileDesc: user.ProfileDesc,
         DependencyDesc: user.DependencyDesc,
         Cuil: user.Cuil,
+        IdDependency: user.IdDependency,
         name: user.name,
       });
       return true;
