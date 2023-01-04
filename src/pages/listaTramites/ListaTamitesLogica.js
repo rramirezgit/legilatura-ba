@@ -4,8 +4,11 @@ export const getListaTramites = (cuil, setRows) => {
   const data = masterCertificationList(cuil)
     .then((response) => {
       console.log(response);
-      if (response.length > 0) {
-        setRows(response);
+      if (response.statusText === "OK") {
+        if (response.data.length === 0) {
+          setRows([]);
+        }
+        setRows(response.data);
       } else {
         setRows([]);
       }

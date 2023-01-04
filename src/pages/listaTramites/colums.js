@@ -1,0 +1,66 @@
+export const columnsInbox = [
+  {
+    field: "tipoTramite",
+    width: 130,
+    headerName: "Tipo Tramite",
+    editable: false,
+  },
+  {
+    field: "id",
+    width: 130,
+    headerName: "ID Trámite",
+    editable: false,
+  },
+  {
+    field: "periodo",
+    width: 100,
+    headerName: "Periodo",
+    editable: false,
+    type: "text",
+  },
+  {
+    field: "descDependencia",
+    headerName: "Dependencia ",
+    width: 220,
+    editable: false,
+    type: "text",
+  },
+  {
+    field: "fechaCreacion",
+    headerName: "Fecha creacion ",
+    type: "dateTime",
+    width: 130,
+    editable: false,
+  },
+  {
+    field: "cuitCertificante",
+    width: 140,
+    headerName: "Cuit certificante ",
+    editable: false,
+  },
+  {
+    field: "fechaCreacion",
+    headerName: "Fecha certificacion ",
+    width: 140,
+    type: "dateTime",
+    editable: false,
+  },
+  {
+    field: "fecha_aprobacion_hr",
+    width: 160,
+    headerName: "Fecha Aprob./Rechazo",
+    editable: false,
+  },
+  {
+    field: "estado",
+    headerName: "Estado",
+    type: "text",
+    editable: false,
+  },
+  //{
+  //  field: "claves",
+  //  headerName: "Claves",
+  //  type: "text",
+  //  editable: false,
+  //},
+];
