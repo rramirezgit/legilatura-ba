@@ -29,21 +29,21 @@ export const colums = [
       <Autocomplete
         options={timeSlots}
         sx={{ width: 100 }}
-        value={row?.horario.slice("-")[0]}
+        value={row?.horario.split("-")[0]}
         disableClearable
         readOnly
         renderInput={(params) => (
-          <TextField {...params} value={row?.horario.slice("-")[0]} />
+          <TextField {...params} value={row?.horario.split("-")[0]} />
         )}
       />,
       <Autocomplete
         options={timeSlots}
-        value={row?.horario.slice("-")[2]}
+        value={row?.horario.split("-")[1]}
         sx={{ width: 100 }}
         disableClearable
         readOnly
         renderInput={(params) => (
-          <TextField {...params} value={row?.horario.slice("-")[2]} />
+          <TextField {...params} value={row?.horario.split("-")[1]} />
         )}
       />,
     ],
