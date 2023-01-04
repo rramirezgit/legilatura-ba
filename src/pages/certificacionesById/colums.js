@@ -8,7 +8,7 @@ export const colums = [
     editable: true,
   },
   {
-    field: "dni",
+    field: "numeroDocumento",
     width: 100,
     headerName: "DNI",
     editable: true,
@@ -29,24 +29,28 @@ export const colums = [
       <Autocomplete
         options={timeSlots}
         sx={{ width: 100 }}
-        value={row?.from}
+        value={row?.horario.slice("-")[0]}
         disableClearable
         readOnly
-        renderInput={(params) => <TextField {...params} value={row?.from} />}
+        renderInput={(params) => (
+          <TextField {...params} value={row?.horario.slice("-")[0]} />
+        )}
       />,
       <Autocomplete
         options={timeSlots}
-        value={row?.to}
+        value={row?.horario.slice("-")[1]}
         sx={{ width: 100 }}
         disableClearable
         readOnly
-        renderInput={(params) => <TextField {...params} value={row?.to} />}
+        renderInput={(params) => (
+          <TextField {...params} value={row?.horario.slice("-")[1]} />
+        )}
       />,
     ],
     width: 250,
   },
   {
-    field: "novedades",
+    field: "novedad",
     width: 240,
     headerName: "Novedades",
     editable: true,
@@ -59,10 +63,8 @@ export const colums = [
   },
 ];
 
-// One time slot every 30 minutes.
-const timeSlots = Array.from(new Array(24 * 2)).map(
-  (_, index) =>
-    `${index < 20 ? "0" : ""}${Math.floor(index / 2)}:${
-      index % 2 === 0 ? "00" : "30"
-    }`
-);
+// One time slot
+const timeSlots = Array.from(new Array(24)).map((_, i) => {
+  const hour = i < 10 ? `0${i}` : i;
+  return `${hour}`;
+});
