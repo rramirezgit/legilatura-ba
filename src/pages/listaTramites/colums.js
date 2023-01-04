@@ -39,14 +39,14 @@ export const columnsInbox = [
     editable: false,
   },
   {
-    field: "fechaCreacion",
+    field: "fechaCertificacion",
     headerName: "Fecha certificacion ",
     width: 140,
     type: "dateTime",
     editable: false,
   },
   {
-    field: "fecha_aprobacion_hr",
+    field: "fechaDecision",
     width: 160,
     headerName: "Fecha Aprob./Rechazo",
     editable: false,
