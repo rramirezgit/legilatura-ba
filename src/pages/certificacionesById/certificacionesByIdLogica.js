@@ -89,7 +89,11 @@ export const getDetailCertificationList = async (id, fnSetRows) => {
     .then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
-        fnSetRows(response.data);
+        let data = response.data.map((item) => ({
+          ...item,
+          novedad: item.novedad ? item.novedad : "-",
+        }));
+        fnSetRows(data);
       } else {
         fnSetRows([]);
       }
