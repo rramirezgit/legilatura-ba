@@ -34,8 +34,8 @@ export const getMasterCertificationList = async ({
 };
 
 const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
-  debugger;
-  let dataFiltered = filtraPeriodo(data, periodo);
+  let formatPeriodo = new Date(periodo).toISOString().slice(0, 7);
+  let dataFiltered = filtraPeriodo(data, formatPeriodo);
   let idList = [];
   if (dataFiltered.length) {
     idList = dataFiltered.map((item) => item.id);
