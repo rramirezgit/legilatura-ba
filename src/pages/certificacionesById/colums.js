@@ -38,12 +38,12 @@ export const colums = [
       />,
       <Autocomplete
         options={timeSlots}
-        value={row?.horario.slice("-")[1]}
+        value={row?.horario.slice("-")[2]}
         sx={{ width: 100 }}
         disableClearable
         readOnly
         renderInput={(params) => (
-          <TextField {...params} value={row?.horario.slice("-")[1]} />
+          <TextField {...params} value={row?.horario.slice("-")[2]} />
         )}
       />,
     ],
