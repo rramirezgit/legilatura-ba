@@ -34,6 +34,7 @@ export const getMasterCertificationList = async ({
 };
 
 const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
+  debugger;
   let dataFiltered = filtraPeriodo(data, periodo);
   let idList = [];
   if (dataFiltered.length) {

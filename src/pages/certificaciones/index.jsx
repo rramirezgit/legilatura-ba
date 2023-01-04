@@ -80,7 +80,7 @@ export default function Certificaciones() {
             onChange={(newValue) =>
               getMasterCertificationList({
                 cuil: user.Cuil,
-                periodo: newValue,
+                periodo: new Date(newValue).toISOString().slice(0, 7),
                 fnSetPeriodo: setPeriodo,
                 fnSetRows: setRows,
               })
