@@ -2,7 +2,7 @@
   "name": "legislatura",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://10.1.0.5:9182",
+ "proxy": "https://10.1.0.5:9182",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",

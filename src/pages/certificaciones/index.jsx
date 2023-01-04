@@ -96,10 +96,10 @@ export default function Certificaciones() {
                 postMasterCertification({
                   data: {
                     periodo: new Date().toISOString().slice(0, 7),
-                    dependencia: user.DependencyDesc,
+                    dependencia: "prueba",
                     cuitCertificante: user.Cuil,
                     estado: "B",
-                    tipoTramite: "Certificacion",
+                    tipoTramite: "prueba",
                     fechaCreacion: new Date().toISOString(),
                   },
                   fnSetRows: setRows,
