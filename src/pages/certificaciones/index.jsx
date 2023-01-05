@@ -138,8 +138,8 @@ export default function Certificaciones() {
                     return row;
                   }
                 });
-                setRows(data);
                 setSelectedRows([...selectedRows, params.id]);
+                setRows(data);
               }}
               selectionModel={selectedRows}
               from="admin-cert"

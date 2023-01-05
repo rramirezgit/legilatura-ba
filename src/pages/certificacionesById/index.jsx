@@ -121,6 +121,7 @@ export default function Certificaciones() {
                     return row;
                   }
                 });
+                setSelectedRows([...selectedRows, params.id]);
                 setRows(data);
               }}
               EmptyMessage="No hay datos"
