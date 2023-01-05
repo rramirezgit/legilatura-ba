@@ -22,7 +22,6 @@ export default function Table({
   return (
     <div style={style}>
       <DataGrid
-        editMode="row"
         disableDensitySelector
         hideFooterSelectedRowCount
         checkboxSelection={location.pathname !== "/"}
