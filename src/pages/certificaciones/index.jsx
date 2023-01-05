@@ -24,7 +24,7 @@ import {
 import { colums } from "./columns";
 
 export default function Certificaciones() {
-  const [periodo, setPeriodo] = useState(null);
+  const [periodo, setPeriodo] = useState(new Date());
   const [rows, setRows] = useState([]);
   const { user } = useContext(AuthContextTheme);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -80,7 +80,7 @@ export default function Certificaciones() {
             onChange={(newValue) =>
               getMasterCertificationList({
                 cuil: user.Cuil,
-                periodo: new Date(newValue).toISOString().slice(0, 7),
+                periodo: newValue,
                 fnSetPeriodo: setPeriodo,
                 fnSetRows: setRows,
               })
