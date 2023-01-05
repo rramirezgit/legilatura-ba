@@ -55,12 +55,6 @@ export default function Table({
         }}
         onSelectionModelChange={onSelectionModelChange}
         selectionModel={selectionModel}
-        experimentalFeatures={{ newEditingApi: true }}
-        onCellEditStop={(params, event) => {
-          if (params.reason === GridCellEditStopReasons.cellFocusOut) {
-            event.defaultMuiPrevented = true;
-          }
-        }}
       />
     </div>
   );
