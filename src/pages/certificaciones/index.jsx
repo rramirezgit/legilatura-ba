@@ -134,7 +134,10 @@ export default function Certificaciones() {
                 let rowsNew = [...rows];
                 let data = rowsNew.map((row) => {
                   if (params.id === row.id) {
-                    return params.row;
+                    return {
+                      ...row,
+                      [params.field]: params.value,
+                    };
                   } else {
                     return row;
                   }
