@@ -13,10 +13,10 @@ const TextMaskCustom = (props) => {
   return (
     <IMaskInput
       {...other}
-      mask="#0-#0"
+      mask="#&-#&"
       definitions={{
         "#": /[0-2]/,
-        0: /[0-9]/,
+        "&": /[0-9]/,
       }}
       onAccept={(value) => {
         let from = parseInt(value.split("-")[0]);
