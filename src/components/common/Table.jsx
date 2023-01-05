@@ -38,6 +38,9 @@ export default function Table({
         }}
         rows={dataRows}
         columns={columns}
+        onCellEditCommit={(params, event, detail) => {
+          console(params, event, detail);
+        }}
         disableSelectionOnClick={from === "admin-cert"}
         onRowClick={(params) => {
           if (location.pathname === "/") {
