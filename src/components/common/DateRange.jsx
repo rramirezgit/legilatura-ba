@@ -44,7 +44,7 @@ export const DateRange = ({ id, value, field }) => {
   const apiRef = useGridApiContext();
   return [
     <Input
-      value={value}
+      value={"08-18"}
       onChange={handleChange}
       name="textmask"
       id="formatted-text-mask-input"
