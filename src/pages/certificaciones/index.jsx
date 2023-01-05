@@ -195,7 +195,7 @@ export default function Certificaciones() {
                         });
                       });
                       handleSave({
-                        dataChange,
+                        data: dataChange,
                         fnSetRows: setRows,
                         periodo,
                         cuil: user.Cuil,
