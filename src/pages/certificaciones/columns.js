@@ -33,39 +33,11 @@ export const colums = [
   {
     field: "horario",
     headerName: "Horario",
-    type: "actions",
+    renderCell: (params) => <TextField value={params.value?.horario} />,
+    renderEditCell: () => <DateRange />,
     editable: true,
-    getActions: ({ row }) => {
-      return [
-        <Autocomplete
-          options={timeSlots}
-          sx={{ width: 80 }}
-          defaultValue={row?.horario.split("-")[0]}
-          onChange={(e, value) => {
-            console.log(value);
-            row.horario = `${value}-${row?.horario.split("-")[1]}`;
-          }}
-          disableClearable
-          renderInput={(params) => (
-            <TextField {...params} value={row?.horario.split("-")[0]} />
-          )}
-        />,
-        <Autocomplete
-          options={timeSlots}
-          defaultValue={row?.horario.split("-")[1]}
-          onChange={(e, value) => {
-            console.log(value);
-            row.horario = `${row?.horario.split("-")[0]}-${value}`;
-          }}
-          sx={{ width: 80 }}
-          disableClearable
-          renderInput={(params) => (
-            <TextField {...params} value={row?.horario.split("-")[1]} />
-          )}
-        />,
-      ];
-    },
-    width: 200,
+    width: 180,
+    type: "number",
   },
   {
     field: "novedad",
