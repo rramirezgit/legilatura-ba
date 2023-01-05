@@ -11,6 +11,7 @@ export default function Table({
   style,
   EmptyMessage,
   isCellEditable,
+  onCellEditCommit = () => {},
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,10 +39,8 @@ export default function Table({
         }}
         rows={dataRows}
         columns={columns}
-        onCellEditCommit={(params, event, detail) => {
-          console.log(params, event, detail);
-        }}
-        disableSelectionOnClick={from === "admin-cert"}
+        onCellEditCommit={onCellEditCommit}
+        // disableSelectionOnClick={from === "admin-cert"}
         onRowClick={(params) => {
           if (location.pathname === "/") {
             navigate(`/administracion_certificaciones/${params.row.id}`, {

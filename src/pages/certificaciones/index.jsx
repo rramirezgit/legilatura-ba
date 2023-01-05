@@ -62,10 +62,6 @@ export default function Certificaciones() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(selectedRows);
-  }, [selectedRows]);
-
   return (
     <>
       <AppLayout>
@@ -128,11 +124,23 @@ export default function Certificaciones() {
           <Paper elevation={3}>
             <Table
               onSelectionModelChange={(ids) => {
+                debugger;
                 const selectedIDs = new Set(ids);
                 const selectedRows = rows.filter((row) =>
                   selectedIDs.has(row.id)
                 );
                 setSelectedRows(selectedRows);
+              }}
+              onCellEditCommit={(params) => {
+                let rowsNew = [...rows];
+                rowsNew.map((row) => {
+                  if (params.id === row.id) {
+                    return params.row;
+                  } else {
+                    return row;
+                  }
+                });
+                setRows(rowsNew);
               }}
               from="admin-cert"
               EmptyMessage="No hay datos"
