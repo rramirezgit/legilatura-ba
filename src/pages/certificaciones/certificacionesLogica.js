@@ -83,7 +83,7 @@ export const postMasterCertification = async ({ data, fnSetRows }) => {
     });
 };
 
-export const handleSave = (data) => {
+export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
   Swal.fire({
     title: "Seguro que desea Guardar?",
     icon: "warning",
@@ -110,7 +110,13 @@ export const handleSave = (data) => {
       )
         .then((response) => {
           console.log(response);
-          message("Guardado con exito", "success", () => {});
+          message("Guardado con exito", "success", () => {
+            getMasterCertificationList({
+              cuil,
+              periodo,
+              fnSetRows,
+            });
+          });
         })
         .catch((error) => {
           console.log(error);

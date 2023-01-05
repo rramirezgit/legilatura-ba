@@ -194,7 +194,12 @@ export default function Certificaciones() {
                           }
                         });
                       });
-                      handleSave(dataChange);
+                      handleSave({
+                        dataChange,
+                        fnSetRows: setRows,
+                        periodo,
+                        cuil: user.Cuil,
+                      });
                     } else {
                       Swal.fire({
                         title:
