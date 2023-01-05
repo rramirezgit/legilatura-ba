@@ -131,16 +131,15 @@ export default function Certificaciones() {
                 setSelectedRows(selectedRows);
               }}
               onCellEditCommit={(params) => {
-                debugger;
                 let rowsNew = [...rows];
-                rowsNew.map((row) => {
+                let data = rowsNew.map((row) => {
                   if (params.id === row.id) {
                     return params.row;
                   } else {
                     return row;
                   }
                 });
-                setRows(rowsNew);
+                setRows(data);
               }}
               from="admin-cert"
               EmptyMessage="No hay datos"
