@@ -36,7 +36,6 @@ export const colums = [
     renderEditCell: DateRange,
     editable: true,
     width: 180,
-    type: "number",
   },
   {
     field: "novedad",
