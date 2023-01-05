@@ -111,7 +111,7 @@ export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
         .then((response) => {
           console.log(response);
           message("Guardado con exito", "success", () => {
-            getMasterCertificationList({
+            getDetailsByIdList({
               cuil,
               periodo,
               fnSetRows,
