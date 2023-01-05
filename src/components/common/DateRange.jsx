@@ -21,7 +21,7 @@ const TextMaskCustom = (props) => {
       overwrite
     />
   );
-});
+};
 
 export const DateRange = ({ id, value, field }) => {
   const [values, setValues] = useState({
