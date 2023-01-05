@@ -12,6 +12,7 @@ export default function Table({
   columns,
   onSelectionModelChange,
   dataRows,
+  selectionModel = [],
   style,
   EmptyMessage,
   isCellEditable,
@@ -53,6 +54,7 @@ export default function Table({
           }
         }}
         onSelectionModelChange={onSelectionModelChange}
+        selectionModel={selectionModel}
         experimentalFeatures={{ newEditingApi: true }}
         onCellEditStop={(params, event) => {
           if (params.reason === GridCellEditStopReasons.cellFocusOut) {

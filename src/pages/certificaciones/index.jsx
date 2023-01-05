@@ -139,7 +139,9 @@ export default function Certificaciones() {
                   }
                 });
                 setRows(data);
+                setSelectedRows([...selectedRows, params.id]);
               }}
+              selectionModel={selectedRows}
               from="admin-cert"
               EmptyMessage="No hay datos"
               columns={colums}
