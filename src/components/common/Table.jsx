@@ -1,5 +1,9 @@
 import * as React from "react";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridCellEditStopReasons,
+  GridToolbar,
+} from "@mui/x-data-grid";
 import CustomNoRowsOverlay from "./CustomComponentTable";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -41,7 +45,7 @@ export default function Table({
         rows={dataRows}
         columns={columns}
         onCellEditCommit={onCellEditCommit}
-        // disableSelectionOnClick={from === "admin-cert"}
+        disableSelectionOnClick={from === "admin-cert"}
         onRowClick={(params) => {
           if (location.pathname === "/") {
             navigate(`/administracion_certificaciones/${params.row.id}`, {
@@ -50,6 +54,12 @@ export default function Table({
           }
         }}
         onSelectionModelChange={onSelectionModelChange}
+        experimentalFeatures={{ newEditingApi: true }}
+        onCellEditStop={(params, event) => {
+          if (params.reason === GridCellEditStopReasons.cellFocusOut) {
+            event.defaultMuiPrevented = true;
+          }
+        }}
       />
     </div>
   );
