@@ -65,7 +65,7 @@ export const colums = [
         />,
       ];
     },
-    width: 250,
+    width: 200,
   },
   {
     field: "novedad",

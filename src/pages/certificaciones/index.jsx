@@ -124,7 +124,6 @@ export default function Certificaciones() {
           <Paper elevation={3}>
             <Table
               onSelectionModelChange={(ids) => {
-                debugger;
                 const selectedIDs = new Set(ids);
                 const selectedRows = rows.filter((row) =>
                   selectedIDs.has(row.id)
@@ -132,6 +131,7 @@ export default function Certificaciones() {
                 setSelectedRows(selectedRows);
               }}
               onCellEditCommit={(params) => {
+                debugger;
                 let rowsNew = [...rows];
                 rowsNew.map((row) => {
                   if (params.id === row.id) {
