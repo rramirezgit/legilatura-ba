@@ -18,7 +18,18 @@ const TextMaskCustom = (props) => {
         "#": /[0-2]/,
         0: /[0-9]/,
       }}
-      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      onAccept={(value) => {
+        let from = parseInt(value.split("-")[0]);
+        let to = parseInt(value.split("-")[1]);
+        if (from > 23) {
+          from = "23";
+        }
+        if (to > 23) {
+          to = "23";
+        }
+        value = `${from}-${to}`;
+        onChange({ target: { name: props.name, value } });
+      }}
       overwrite
     />
   );
@@ -26,7 +37,10 @@ const TextMaskCustom = (props) => {
 
 export const DateRange = ({ id, value, field }) => {
   console.log(value);
-  const handleChange = (event) => {};
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    apiRef.current.setEditCellValue({ id, field, value: event.target.value });
+  };
   const apiRef = useGridApiContext();
   return [
     <Input
