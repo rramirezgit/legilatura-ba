@@ -33,7 +33,7 @@ export const colums = [
   {
     field: "horario",
     headerName: "Horario",
-    renderEditCell: () => <DateRange />,
+    renderEditCell: (params) => <DateRange params={params} />,
     editable: true,
     width: 180,
     type: "number",
