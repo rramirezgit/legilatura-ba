@@ -1,44 +1,45 @@
 export const colums = [
   {
+    field: "idCerticicacion",
+    width: 100,
+    headerName: "id Certificacion",
+  },
+  {
+    field: "id",
+    width: 100,
+    headerName: "id ",
+  },
+  {
     field: "nombre",
     width: 230,
     headerName: "Apellido y Nombre",
-    editable: true,
   },
   {
-    field: "dni",
-    width: 100,
+    field: "numeroDocumento",
+    width: 130,
     headerName: "DNI",
-    editable: true,
     type: "number",
   },
   {
     field: "legajo",
     headerName: "Legajo",
     width: 130,
-    editable: true,
     type: "number",
   },
   {
-    field: "from",
-    headerName: "Desde",
-    width: 80,
+    field: "horario",
+    headerName: "Horario",
+    editable: true,
+    width: 180,
   },
   {
-    field: "to",
-    headerName: "Hasta",
-    width: 80,
-  },
-  {
-    field: "novedades",
+    field: "novedad",
     width: 240,
     headerName: "Novedades",
     editable: true,
   },
   {
-    field: "certificado",
-    headerName: "Certificado",
-    type: "boolean",
-    editable: true,
+    field: "estado",
+    headerName: "Estado",
   },
 ];

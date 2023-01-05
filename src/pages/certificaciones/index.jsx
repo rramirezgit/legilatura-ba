@@ -176,7 +176,20 @@ export default function Certificaciones() {
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
-                  onClick={handleSign}
+                  onClick={() => {
+                    if (selectedRows.length) {
+                      handleSign();
+                    } else {
+                      Swal.fire({
+                        title: "debe serleccionar al menos un registro",
+                        icon: "warning",
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                        confirmButtonAriaLabel: "Thumbs up, great!",
+                      });
+                    }
+                  }}
                 >
                   Firmar
                 </Button>
@@ -228,7 +241,22 @@ export default function Certificaciones() {
           display: "none",
         }}
       >
-        <MyDocument referencia={componentRef} rows={rows} />
+        <MyDocument
+          referencia={componentRef}
+          rows={() => {
+            let dataChange = [];
+            selectedRows.forEach((row) => {
+              rows.forEach((item) => {
+                if (item.id === row) {
+                  dataChange.push({
+                    ...item,
+                  });
+                }
+              });
+            });
+            return dataChange;
+          }}
+        />
       </div>
     </>
   );
