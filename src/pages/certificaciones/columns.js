@@ -1,4 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
+import { useState } from "react";
 import { DateRange } from "../../components/common/DateRange";
 
 export const colums = [
@@ -16,11 +17,10 @@ export const colums = [
     field: "nombre",
     width: 230,
     headerName: "Apellido y Nombre",
-    editable: true,
   },
   {
     field: "numeroDocumento",
-    width: 100,
+    width: 130,
     headerName: "DNI",
     type: "number",
   },
@@ -35,26 +35,36 @@ export const colums = [
     headerName: "Horario",
     type: "actions",
     editable: true,
-    getActions: ({ row }) => [
-      <Autocomplete
-        options={timeSlots}
-        sx={{ width: 100 }}
-        value={row?.horario.split("-")[0]}
-        disableClearable
-        renderInput={(params) => (
-          <TextField {...params} value={row?.horario.split("-")[0]} />
-        )}
-      />,
-      <Autocomplete
-        options={timeSlots}
-        value={row?.horario.split("-")[1]}
-        sx={{ width: 100 }}
-        disableClearable
-        renderInput={(params) => (
-          <TextField {...params} value={row?.horario.split("-")[1]} />
-        )}
-      />,
-    ],
+    getActions: ({ row }) => {
+      return [
+        <Autocomplete
+          options={timeSlots}
+          sx={{ width: 80 }}
+          defaultValue={row?.horario.split("-")[0]}
+          onChange={(e, value) => {
+            console.log(value);
+            row.horario = `${value}-${row?.horario.split("-")[1]}`;
+          }}
+          disableClearable
+          renderInput={(params) => (
+            <TextField {...params} value={row?.horario.split("-")[0]} />
+          )}
+        />,
+        <Autocomplete
+          options={timeSlots}
+          defaultValue={row?.horario.split("-")[1]}
+          onChange={(e, value) => {
+            console.log(value);
+            row.horario = `${row?.horario.split("-")[0]}-${value}`;
+          }}
+          sx={{ width: 80 }}
+          disableClearable
+          renderInput={(params) => (
+            <TextField {...params} value={row?.horario.split("-")[1]} />
+          )}
+        />,
+      ];
+    },
     width: 250,
   },
   {
