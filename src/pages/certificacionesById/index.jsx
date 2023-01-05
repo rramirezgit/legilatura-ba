@@ -107,11 +107,21 @@ export default function Certificaciones() {
           <Paper elevation={3}>
             <Table
               onSelectionModelChange={(ids) => {
-                const selectedIDs = new Set(ids);
-                const selectedRows = rows.filter((row) =>
-                  selectedIDs.has(row.id)
-                );
-                setSelectedRows(selectedRows);
+                setSelectedRows(ids);
+              }}
+              onCellEditCommit={(params) => {
+                let rowsNew = [...rows];
+                let data = rowsNew.map((row) => {
+                  if (params.id === row.id) {
+                    return {
+                      ...row,
+                      [params.field]: params.value,
+                    };
+                  } else {
+                    return row;
+                  }
+                });
+                setRows(data);
               }}
               EmptyMessage="No hay datos"
               from="admin-cert"
