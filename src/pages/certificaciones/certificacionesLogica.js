@@ -44,11 +44,19 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
         return detailCertificationList(id);
       })
     ).then((response) => {
-      debugger;
-      let data = response.map((item) => {
-        return item.data[0];
-      });
-      fnSetRows(data);
+      if (response.length) {
+        let data = response
+          .map((itemResponse) => {
+            if (itemResponse.data.length) {
+              return itemResponse.data;
+            } else {
+              return null;
+            }
+          })
+          .filter((item) => item !== null);
+
+        fnSetRows(data);
+      }
     });
   }
 };
