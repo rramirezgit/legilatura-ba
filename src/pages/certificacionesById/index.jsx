@@ -25,6 +25,7 @@ import {
 import { getMasterCertificationList } from "../certificaciones/certificacionesLogica";
 import MyDocument from "../../components/common/myDocument";
 import { useReactToPrint } from "react-to-print";
+import Swal from "sweetalert2";
 
 export default function Certificaciones() {
   const location = useLocation();
@@ -146,7 +147,36 @@ export default function Certificaciones() {
               <Button
                 sx={{ float: "right", margin: "10px 5px" }}
                 variant="contained"
-                onClick={() => handleSave(navigate, selectedRows)}
+                onClick={() => {
+                  if (selectedRows.length) {
+                    let dataChange = [];
+                    selectedRows.forEach((row) => {
+                      rows.forEach((item) => {
+                        if (item.id === row) {
+                          dataChange.push({
+                            ...item,
+                          });
+                        }
+                      });
+                    });
+                    handleSave({
+                      data: dataChange,
+                      fnSetRows: setRows,
+                      periodo,
+                      cuil: user.Cuil,
+                    });
+                  } else {
+                    Swal.fire({
+                      title:
+                        "Seleccione un detalle de certificación para guardar",
+                      icon: "warning",
+                      showCloseButton: true,
+                      showCancelButton: false,
+                      confirmButtonText: "Ok",
+                      focusCancel: true,
+                    });
+                  }
+                }}
               >
                 Guardar
               </Button>
