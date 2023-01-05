@@ -112,7 +112,11 @@ export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
         .then((response) => {
           console.log(response);
           message("Guardado con exito", "success", () => {
-            getDetailsByIdList({ data, periodo: formatPeriodo, fnSetRows });
+            getMasterCertificationList({
+              data,
+              periodo: formatPeriodo,
+              fnSetRows,
+            });
           });
         })
         .catch((error) => {
