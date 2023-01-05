@@ -84,40 +84,51 @@ export const postMasterCertification = async ({ data, fnSetRows }) => {
 };
 
 export const handleSave = (data) => {
-  Swal.fire({
-    title: "Seguro que desea Guardar?",
-    icon: "warning",
-    showCloseButton: true,
-    showCancelButton: true,
-    confirmButtonText: "Si",
-    cancelButtonText: "No",
-    focusCancel: true,
-    confirmButtonAriaLabel: "Thumbs up, great!",
-    cancelButtonAriaLabel: "Thumbs down",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Promise.all(
-        data.map((item) => {
-          let body = {
-            id: item.id,
-            horario: item.horario,
-            novedad: item.novedad,
-            estado: item.estado,
-          };
+  if (data.length) {
+    Swal.fire({
+      title: "Seguro que desea Guardar?",
+      icon: "warning",
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      focusCancel: true,
+      confirmButtonAriaLabel: "Thumbs up, great!",
+      cancelButtonAriaLabel: "Thumbs down",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Promise.all(
+          data.map((item) => {
+            let body = {
+              id: item.id,
+              horario: item.horario,
+              novedad: item.novedad,
+              estado: item.estado,
+            };
 
-          return editDetailCertificationList(item.id, body);
-        })
-      )
-        .then((response) => {
-          console.log(response);
-          message("Guardado con exito", "success", () => {});
-        })
-        .catch((error) => {
-          console.log(error);
-          message("Error al guardar", "error", () => {});
-        });
-    }
-  });
+            return editDetailCertificationList(item.id, body);
+          })
+        )
+          .then((response) => {
+            console.log(response);
+            message("Guardado con exito", "success", () => {});
+          })
+          .catch((error) => {
+            console.log(error);
+            message("Error al guardar", "error", () => {});
+          });
+      }
+    });
+  } else {
+    Swal.fire({
+      title: "Seleccione un detalle de certificación para guardar",
+      icon: "warning",
+      showCloseButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Ok",
+      focusCancel: true,
+    });
+  }
 };
 
 const message = (title, icon, fn) => {
