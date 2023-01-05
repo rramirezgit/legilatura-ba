@@ -58,6 +58,8 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
         fnSetRows(data);
       }
     });
+  } else {
+    fnSetRows([]);
   }
 };
 
