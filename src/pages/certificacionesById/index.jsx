@@ -160,6 +160,7 @@ export default function Certificaciones() {
                       });
                     });
                     handleSave({
+                      navigate,
                       data: dataChange,
                       fnSetRows: setRows,
                       periodo,
