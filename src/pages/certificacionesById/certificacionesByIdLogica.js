@@ -26,8 +26,7 @@ export const handleSign = (navigate, handlePrint) => {
   });
 };
 
-export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
-  let formatPeriodo = new Date(periodo).toISOString().slice(0, 7);
+export const handleSave = ({ navigate, data, fnSetRows, periodo, cuil }) => {
   Swal.fire({
     title: "Seguro que desea Guardar?",
     icon: "warning",
