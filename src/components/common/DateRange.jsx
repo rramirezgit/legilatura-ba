@@ -1,38 +1,51 @@
 import { Autocomplete, TextField } from "@mui/material";
+import { useGridApiContext } from "@mui/x-data-grid";
 import React, { useState } from "react";
 
-// One time slot every 30 minutes.
-const timeSlots = Array.from(new Array(24 * 2)).map(
-  (_, index) =>
-    `${index < 20 ? "0" : ""}${Math.floor(index / 2)}:${
-      index % 2 === 0 ? "00" : "30"
-    }`
-);
+// One time slot
+const timeSlots = Array.from(new Array(24)).map((_, i) => {
+  const hour = i < 10 ? `0${i}` : i;
+  return `${hour}`;
+});
 
 export const DateRange = (row) => {
-  const [from, setFrom] = useState(row?.from);
-  const [to, setTo] = useState(row?.to);
-
+  const apiRef = useGridApiContext();
   return [
     <Autocomplete
       options={timeSlots}
-      sx={{ width: 100 }}
-      defaultValue={from}
-      disableClearable
-      onChange={(event, newValue) => {
-        setFrom(newValue);
+      sx={{ width: 80 }}
+      defaultValue={row?.horario.split("-")[0]}
+      onChange={(e, value) => {
+        console.log(value);
+        row.horario = `${value}-${row?.horario.split("-")[1]}`;
+        apiRef.current.setEditCellValue({
+          id: row.id,
+          field: "horario",
+          value: row.horario,
+        });
       }}
-      renderInput={(params) => <TextField {...params} />}
+      disableClearable
+      renderInput={(params) => (
+        <TextField {...params} value={row?.horario.split("-")[0]} />
+      )}
     />,
     <Autocomplete
       options={timeSlots}
-      sx={{ width: 100 }}
-      defaultValue={to}
-      disableClearable
-      onChange={(event, newValue) => {
-        setTo(newValue);
+      defaultValue={row?.horario.split("-")[1]}
+      onChange={(e, value) => {
+        console.log(value);
+        row.horario = `${row?.horario.split("-")[0]}-${value}`;
+        apiRef.current.setEditCellValue({
+          id: row.id,
+          field: "horario",
+          value: row.horario,
+        });
       }}
-      renderInput={(params) => <TextField {...params} />}
+      sx={{ width: 80 }}
+      disableClearable
+      renderInput={(params) => (
+        <TextField {...params} value={row?.horario.split("-")[1]} />
+      )}
     />,
   ];
 };

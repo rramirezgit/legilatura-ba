@@ -49,9 +49,3 @@ export const colums = [
     headerName: "Estado",
   },
 ];
-
-// One time slot
-const timeSlots = Array.from(new Array(24)).map((_, i) => {
-  const hour = i < 10 ? `0${i}` : i;
-  return `${hour}`;
-});
