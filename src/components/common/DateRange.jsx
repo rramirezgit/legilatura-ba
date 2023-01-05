@@ -8,7 +8,7 @@ const timeSlots = Array.from(new Array(24)).map((_, i) => {
   return `${hour}`;
 });
 
-const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
+const TextMaskCustom = (props) => {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
@@ -17,7 +17,6 @@ const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
       definitions={{
         "#": /[1-9]/,
       }}
-      inputRef={ref}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite
     />
