@@ -62,6 +62,10 @@ export default function Certificaciones() {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(selectedRows);
+  }, [selectedRows]);
+
   return (
     <>
       <AppLayout>
