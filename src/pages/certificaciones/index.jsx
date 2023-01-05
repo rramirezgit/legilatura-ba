@@ -124,11 +124,7 @@ export default function Certificaciones() {
           <Paper elevation={3}>
             <Table
               onSelectionModelChange={(ids) => {
-                const selectedIDs = new Set(ids);
-                const selectedRows = rows.filter((row) =>
-                  selectedIDs.has(row.id)
-                );
-                setSelectedRows(selectedRows);
+                setSelectedRows(ids);
               }}
               onCellEditCommit={(params) => {
                 let rowsNew = [...rows];
@@ -186,7 +182,31 @@ export default function Certificaciones() {
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
-                  onClick={() => handleSave(selectedRows)}
+                  onClick={() => {
+                    if (selectedRows.length) {
+                      let dataChange = [];
+                      selectedRows.forEach((row) => {
+                        rows.forEach((item) => {
+                          if (item.id === row) {
+                            dataChange.push({
+                              ...item,
+                            });
+                          }
+                        });
+                      });
+                      handleSave(dataChange);
+                    } else {
+                      Swal.fire({
+                        title:
+                          "Seleccione un detalle de certificación para guardar",
+                        icon: "warning",
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                        focusCancel: true,
+                      });
+                    }
+                  }}
                 >
                   Guardar
                 </Button>
