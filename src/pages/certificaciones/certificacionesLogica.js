@@ -48,7 +48,11 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
         let data = [];
         response.forEach((itemResponse) => {
           if (itemResponse.data.length) {
-            data.push(itemResponse.data);
+            itemResponse.data.forEach((item) => {
+              data.push({
+                ...item,
+              });
+            });
           }
         });
         fnSetRows(data);
