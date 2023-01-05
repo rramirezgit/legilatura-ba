@@ -36,15 +36,21 @@ const TextMaskCustom = (props) => {
 };
 
 export const DateRange = ({ id, value, field }) => {
-  console.log(value);
   const handleChange = (event) => {
     console.log(event.target.value);
     apiRef.current.setEditCellValue({ id, field, value: event.target.value });
   };
   const apiRef = useGridApiContext();
+
   return [
     <Input
-      value={"08-18"}
+      value={
+        value.split("-")[0].length < 2
+          ? `0${value.split("-")[0]}-${value.split("-")[1]}`
+          : value.split("-")[1].length < 2
+          ? `${value.split("-")[0]}-0${value.split("-")[1]}`
+          : value
+      }
       onChange={handleChange}
       name="textmask"
       id="formatted-text-mask-input"
