@@ -1,6 +1,12 @@
-import { DateRange } from "../../components/common/DateRange";
+import { Autocomplete, TextField } from "@mui/material";
 
 export const colums = [
+  {
+    field: "idCerticicacion",
+    width: 100,
+    headerName: "id Certificacion",
+    editable: true,
+  },
   {
     field: "nombre",
     width: 230,
@@ -8,7 +14,7 @@ export const colums = [
     editable: true,
   },
   {
-    field: "dni",
+    field: "numeroDocumento",
     width: 100,
     headerName: "DNI",
     editable: true,
@@ -25,11 +31,30 @@ export const colums = [
     field: "horario",
     headerName: "Horario",
     type: "actions",
-    getActions: ({ row }) => DateRange(row),
+    getActions: ({ row }) => [
+      <Autocomplete
+        options={timeSlots}
+        sx={{ width: 100 }}
+        value={row?.horario.split("-")[0]}
+        disableClearable
+        renderInput={(params) => (
+          <TextField {...params} value={row?.horario.split("-")[0]} />
+        )}
+      />,
+      <Autocomplete
+        options={timeSlots}
+        value={row?.horario.split("-")[1]}
+        sx={{ width: 100 }}
+        disableClearable
+        renderInput={(params) => (
+          <TextField {...params} value={row?.horario.split("-")[1]} />
+        )}
+      />,
+    ],
     width: 250,
   },
   {
-    field: "novedades",
+    field: "novedad",
     width: 240,
     headerName: "Novedades",
     editable: true,
@@ -41,3 +66,9 @@ export const colums = [
     editable: true,
   },
 ];
+
+// One time slot
+const timeSlots = Array.from(new Array(24)).map((_, i) => {
+  const hour = i < 10 ? `0${i}` : i;
+  return `${hour}`;
+});
