@@ -43,9 +43,9 @@ export const handleSave = (navigate, data) => {
         data.map((item) => {
           let body = {
             id: item.id,
-            horario: `${item.from} - ${item.to}`,
-            novedad: item.novedades,
-            estado: `${item.certificado}`,
+            horario: item.horario,
+            novedad: item.novedad,
+            estado: item.estado,
           };
           return editDetailCertificationList(item.id, body);
         })

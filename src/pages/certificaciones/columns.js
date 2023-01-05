@@ -1,11 +1,16 @@
 import { Autocomplete, TextField } from "@mui/material";
+import { DateRange } from "../../components/common/DateRange";
 
 export const colums = [
   {
     field: "idCerticicacion",
     width: 100,
     headerName: "id Certificacion",
-    editable: true,
+  },
+  {
+    field: "id",
+    width: 100,
+    headerName: "id ",
   },
   {
     field: "nombre",
@@ -17,20 +22,19 @@ export const colums = [
     field: "numeroDocumento",
     width: 100,
     headerName: "DNI",
-    editable: true,
     type: "number",
   },
   {
     field: "legajo",
     headerName: "Legajo",
     width: 130,
-    editable: true,
     type: "number",
   },
   {
     field: "horario",
     headerName: "Horario",
     type: "actions",
+    editable: true,
     getActions: ({ row }) => [
       <Autocomplete
         options={timeSlots}
@@ -60,10 +64,8 @@ export const colums = [
     editable: true,
   },
   {
-    field: "certificado",
-    headerName: "Certificado",
-    type: "boolean",
-    editable: true,
+    field: "estado",
+    headerName: "Estado",
   },
 ];
 
