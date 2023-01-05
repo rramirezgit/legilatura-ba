@@ -84,6 +84,7 @@ export const postMasterCertification = async ({ data, fnSetRows }) => {
 };
 
 export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
+  let formatPeriodo = new Date(periodo).toISOString().slice(0, 7);
   Swal.fire({
     title: "Seguro que desea Guardar?",
     icon: "warning",
@@ -113,7 +114,7 @@ export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
           message("Guardado con exito", "success", () => {
             getDetailsByIdList({
               cuil,
-              periodo,
+              periodo: formatPeriodo,
               fnSetRows,
             });
           });
