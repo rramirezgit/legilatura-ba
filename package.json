@@ -2,7 +2,7 @@
   "name": "legislatura",
   "version": "0.1.0",
   "private": true,
- "proxy": "https://10.1.0.5:9182",
+  "proxy": "https://10.1.0.5:9182",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -20,6 +20,7 @@
     "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-imask": "^6.4.3",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-to-print": "^2.14.10",
