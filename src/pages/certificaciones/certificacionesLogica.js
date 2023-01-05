@@ -45,16 +45,12 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
       })
     ).then((response) => {
       if (response.length) {
-        let data = response
-          .map((itemResponse) => {
-            if (itemResponse.data.length) {
-              return itemResponse.data;
-            } else {
-              return null;
-            }
-          })
-          .filter((item) => item !== null);
-
+        let data = [];
+        response.forEach((itemResponse) => {
+          if (itemResponse.data.length) {
+            data.push(itemResponse.data);
+          }
+        });
         fnSetRows(data);
       }
     });
