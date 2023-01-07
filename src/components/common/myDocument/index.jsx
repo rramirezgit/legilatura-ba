@@ -38,7 +38,7 @@ const MyDocument = ({ referencia, rows }) => {
           marginTop: "10px",
         }}
       >
-        <DataGrid rows={rows} columns={colums} checkboxSelection />
+        <DataGrid rows={rows} columns={colums} />
       </div>
       {/* signature */}
       <div

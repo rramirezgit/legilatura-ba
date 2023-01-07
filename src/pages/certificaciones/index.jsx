@@ -1,4 +1,3 @@
-import { Co2Sharp } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -96,11 +95,11 @@ export default function Certificaciones() {
               onClick={() => {
                 postMasterCertification({
                   data: {
-                    periodo: new Date().toISOString().slice(0, 7),
+                    periodo: new Date(periodo).toISOString().slice(0, 7),
                     dependencia: user.IdDependency,
                     cuitCertificante: user.Cuil,
                     estado: "B",
-                    tipoTramite: "prueba",
+                    tipoTramite: "Certificación",
                     fechaCreacion: new Date().toISOString(),
                   },
                   fnSetRows: setRows,
@@ -176,20 +175,7 @@ export default function Certificaciones() {
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
-                  onClick={() => {
-                    if (selectedRows.length) {
-                      handleSign();
-                    } else {
-                      Swal.fire({
-                        title: "debe serleccionar al menos un registro",
-                        icon: "warning",
-                        showCloseButton: true,
-                        showCancelButton: false,
-                        confirmButtonText: "Ok",
-                        confirmButtonAriaLabel: "Thumbs up, great!",
-                      });
-                    }
-                  }}
+                  onClick={handleSign}
                 >
                   Firmar
                 </Button>
@@ -241,22 +227,7 @@ export default function Certificaciones() {
           display: "none",
         }}
       >
-        <MyDocument
-          referencia={componentRef}
-          rows={() => {
-            let dataChange = [];
-            selectedRows.forEach((row) => {
-              rows.forEach((item) => {
-                if (item.id === row) {
-                  dataChange.push({
-                    ...item,
-                  });
-                }
-              });
-            });
-            return dataChange;
-          }}
-        />
+        <MyDocument referencia={componentRef} rows={rows} />
       </div>
     </>
   );
