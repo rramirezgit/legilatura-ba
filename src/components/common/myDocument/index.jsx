@@ -8,97 +8,114 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 import logo from "../../../imgs/logo.svg";
 import { colums } from "./colums";
 
 const MyDocument = ({ referencia, rows }) => {
-  return (
-    <div ref={referencia} style={{ padding: "30px" }}>
-      <img src={logo} alt="legislatura-ba" />
-      <Typography
-        variant="h6"
-        sx={{
-          textAlign: "right",
-          fontWeight: "bold",
-          color: "#000000",
-          marginTop: "10px",
-        }}
-      >
-        {new Date().toLocaleDateString()}
-      </Typography>
-      <Typography
-        variant="h5"
-        sx={{
-          textAlign: "center",
-          fontWeight: "bold",
-          color: "#000000",
-          marginTop: "10px",
-        }}
-      >
-        Certificaciones de Servicios Mensuales
-      </Typography>
+  const rowsPerPage = 14;
+  const pages = Math.ceil(rows.length / rowsPerPage);
+  const pagesArray = Array.from(Array(pages).keys());
 
-      <div
-        style={{
-          // height: "calc(80vh - 250px)",
-          width: "100%",
-          marginTop: "10px",
-        }}
-      >
-        {/* <DataGrid rows={rows} columns={colums} /> */}
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {colums.map((col, index) => {
-                  return <TableCell key={index}>{col.headerName}</TableCell>;
+  const PDFDocument = ({ rowsPage }) => {
+    return (
+      <div ref={referencia} style={{ padding: "30px" }}>
+        <img src={logo} alt="legislatura-ba" />
+        <Typography
+          variant="h6"
+          sx={{
+            textAlign: "right",
+            fontWeight: "bold",
+            color: "#000000",
+            marginTop: "10px",
+          }}
+        >
+          {new Date().toLocaleDateString()}
+        </Typography>
+        <Typography
+          variant="h5"
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: "#000000",
+            marginTop: "10px",
+          }}
+        >
+          Certificaciones de Servicios Mensuales
+        </Typography>
+
+        <div
+          style={{
+            height: "400px !important",
+            width: "100%",
+            marginTop: "10px",
+          }}
+        >
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {colums.map((col, index) => {
+                    return <TableCell key={index}>{col.headerName}</TableCell>;
+                  })}
+                </TableRow>
+              </TableHead>
+              <tbody>
+                {rowsPage.map((row, index) => {
+                  return (
+                    <TableRow key={index}>
+                      {colums.map((col, index) => {
+                        return (
+                          <TableCell key={index}>{row[col.field]}</TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
                 })}
-              </TableRow>
-            </TableHead>
-            <tbody>
-              {rows.map((row, index) => {
-                return (
-                  <TableRow key={index}>
-                    {colums.map((col, index) => {
-                      return (
-                        <TableCell key={index}>{row[col.field]}</TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </tbody>
-          </Table>
-        </TableContainer>
-      </div>
-      {/* signature */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "end",
-          marginTop: "50px",
-        }}
-      >
-        <div>
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              color: "#000000",
-            }}
-          >
-            Firma
-          </Typography>
-          <Divider
-            style={{
-              width: "300px",
-            }}
-          />
+              </tbody>
+            </Table>
+          </TableContainer>
+        </div>
+        {/* signature */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "end",
+            marginTop: "50px",
+          }}
+        >
+          <div>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                color: "#000000",
+              }}
+            >
+              Firma
+            </Typography>
+            <Divider
+              style={{
+                width: "300px",
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    );
+  };
+
+  return (
+    <>
+      {pagesArray.map((page, index) => {
+        const rowsPage = rows.slice(
+          index * rowsPerPage,
+          (index + 1) * rowsPerPage
+        );
+
+        return <PDFDocument rowsPage={rowsPage} />;
+      })}
+    </>
   );
 };
 

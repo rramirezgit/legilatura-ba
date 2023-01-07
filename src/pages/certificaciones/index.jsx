@@ -16,6 +16,7 @@ import MyDocument from "../../components/common/myDocument";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
+import { dataCertificaciones } from "../../mock/data";
 import {
   getMasterCertificationList,
   handleSave,
@@ -169,17 +170,17 @@ export default function Certificaciones() {
                 </FormControl>
               )}
 
-            {rows.length > 0 &&
+            {/* {rows.length > 0 &&
               user.ProfileDesc === "Director" &&
-              new Date().getMonth() === new Date(periodo).getMonth() && (
-                <Button
-                  sx={{ float: "right", margin: "10px 5px" }}
-                  variant="contained"
-                  onClick={handleSign}
-                >
-                  Firmar
-                </Button>
-              )}
+              new Date().getMonth() === new Date(periodo).getMonth() && ( */}
+            <Button
+              sx={{ float: "right", margin: "10px 5px" }}
+              variant="contained"
+              onClick={handleSign}
+            >
+              Firmar
+            </Button>
+            {/* )} */}
             {rows.length > 0 &&
               new Date().getMonth() === new Date(periodo).getMonth() && (
                 <Button
