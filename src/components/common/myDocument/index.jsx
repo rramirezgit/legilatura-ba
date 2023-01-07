@@ -38,7 +38,25 @@ const MyDocument = ({ referencia, rows }) => {
           marginTop: "10px",
         }}
       >
-        <DataGrid rows={rows} columns={colums} />
+        {/* <DataGrid rows={rows} columns={colums} /> */}
+        <table>
+          <thead>
+            {colums.map((col, index) => {
+              return <th key={index}>{col.headerName}</th>;
+            })}
+          </thead>
+          <tbody>
+            {rows.map((row, index) => {
+              return (
+                <tr key={index}>
+                  {colums.map((col, index) => {
+                    return <td key={index}>{row[col.field]}</td>;
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
       {/* signature */}
       <div
