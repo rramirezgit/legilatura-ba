@@ -42,7 +42,7 @@ const MyDocument = ({ referencia, rows }) => {
 
       <div
         style={{
-          height: "calc(80vh - 250px)",
+          // height: "calc(80vh - 250px)",
           width: "100%",
           marginTop: "10px",
         }}
