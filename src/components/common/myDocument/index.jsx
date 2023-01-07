@@ -1,4 +1,13 @@
-import { Divider, Typography } from "@mui/material";
+import {
+  Divider,
+  Paper,
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 import logo from "../../../imgs/logo.svg";
@@ -39,24 +48,30 @@ const MyDocument = ({ referencia, rows }) => {
         }}
       >
         {/* <DataGrid rows={rows} columns={colums} /> */}
-        <table>
-          <thead>
-            {colums.map((col, index) => {
-              return <th key={index}>{col.headerName}</th>;
-            })}
-          </thead>
-          <tbody>
-            {rows.map((row, index) => {
-              return (
-                <tr key={index}>
-                  {colums.map((col, index) => {
-                    return <td key={index}>{row[col.field]}</td>;
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {colums.map((col, index) => {
+                  return <TableCell key={index}>{col.headerName}</TableCell>;
+                })}
+              </TableRow>
+            </TableHead>
+            <tbody>
+              {rows.map((row, index) => {
+                return (
+                  <TableRow key={index}>
+                    {colums.map((col, index) => {
+                      return (
+                        <TableCell key={index}>{row[col.field]}</TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </tbody>
+          </Table>
+        </TableContainer>
       </div>
       {/* signature */}
       <div
