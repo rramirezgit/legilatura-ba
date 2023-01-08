@@ -2,7 +2,7 @@ export const colums = [
   {
     field: "idCerticicacion",
     width: 100,
-    headerName: "id Certificacion",
+    headerName: "id Cert.",
   },
   {
     field: "id",
