@@ -1,6 +1,7 @@
 import { Box, Paper } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import MyDocument from "../../components/common/myDocument";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
@@ -15,7 +16,13 @@ export default function ListaTramites() {
   const { user } = useContext(AuthContextTheme);
 
   const handlePrint = useReactToPrint({
-    content: () => PDFDocument,
+    content: () => (
+      <MyDocument
+        rows={PDFDocument.rows}
+        currentDate={PDFDocument.currentDate}
+        user={PDFDocument.user}
+      />
+    ),
   });
 
   const printPdf = (stringContentb64) => {
