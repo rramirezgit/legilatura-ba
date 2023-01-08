@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
 import MyDocument from "../../components/common/myDocument";
@@ -31,13 +32,18 @@ export default function Certificaciones() {
   const { user } = useContext(AuthContextTheme);
   const [selectedRows, setSelectedRows] = useState([]);
   const componentRef = useRef();
+  const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     onBeforePrint: () => {
       const stringContengPDF = btoa(
         JSON.stringify({
-          referencia: componentRef.current,
+          referencia: {
+            rows,
+            currentDate: new Date().toLocaleDateString(),
+            user: user.name,
+          },
         })
       );
       const idsCertificaciones = [
@@ -57,8 +63,11 @@ export default function Certificaciones() {
       );
 
       Promise.all(allEditMasterCertificationList).then((res) => {
-        debugger;
+        console.log(res);
       });
+    },
+    onAfterPrint: () => {
+      navigate("/");
     },
   });
 
@@ -255,7 +264,7 @@ export default function Certificaciones() {
           display: "none",
         }}
       >
-        <MyDocument referencia={componentRef} rows={rows} />
+        <MyDocument referencia={componentRef} rows={rows} user={user} />
       </div>
     </>
   );

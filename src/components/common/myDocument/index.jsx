@@ -13,13 +13,16 @@ import { AuthContextTheme } from "../../../context/Auth";
 import logo from "../../../imgs/logo.svg";
 import { colums } from "./colums";
 
-const MyDocument = ({ referencia, rows }) => {
+const MyDocument = ({
+  referencia = null,
+  rows,
+  currentDate = new Date().toLocaleDateString(),
+  user,
+}) => {
   const PDFDocument = () => {
     const rowsPerPage = 11;
     const pages = Math.ceil(rows.length / rowsPerPage);
     const pagesArray = Array.from(Array(pages).keys());
-
-    const { user } = useContext(AuthContextTheme);
 
     const List = (
       <div>
@@ -40,7 +43,7 @@ const MyDocument = ({ referencia, rows }) => {
                   marginTop: "10px",
                 }}
               >
-                {new Date().toLocaleDateString()}
+                {currentDate}
               </Typography>
               <Typography
                 variant="h5"
@@ -121,7 +124,7 @@ const MyDocument = ({ referencia, rows }) => {
                       marginLeft: "50px",
                     }}
                   >
-                    {new Date().toLocaleDateString()}
+                    {currentDate}
                   </Typography>
                 </div>
               </div>
