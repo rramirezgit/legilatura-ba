@@ -33,9 +33,7 @@ export default function ListaTramites() {
 
   useEffect(() => {
     if (componentRef?.current) {
-      setTimeout(() => {
-        handlePrint();
-      }, 1000);
+      handlePrint();
     }
   }, [PDFDocument]);
 
