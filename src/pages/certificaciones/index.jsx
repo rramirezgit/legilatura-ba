@@ -35,7 +35,11 @@ export default function Certificaciones() {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     onBeforePrint: () => {
-      const stringContengPDF = btoa(componentRef.current.innerHTML);
+      const stringContengPDF = btoa(
+        JSON.stringify({
+          referencia: componentRef.current.innerHTML,
+        })
+      );
       const idsCertificaciones = [
         ...new Set(rows.map((row) => row.idCerticicacion)),
       ];
