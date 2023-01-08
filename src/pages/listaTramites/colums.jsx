@@ -8,6 +8,8 @@ const PrintPdf = (stringContentb64) => {
   const handlePrint = useReactToPrint({
     content: () => decodedString.referencia,
   });
+
+  return <></>;
 };
 
 export const columnsInbox = [
