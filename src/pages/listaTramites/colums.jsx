@@ -1,6 +1,5 @@
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import PrintIcon from "@mui/icons-material/Print";
-import { useReactToPrint } from "react-to-print";
 
 export const columnsInbox = (printPdf) => [
   {

@@ -37,7 +37,7 @@ export default function Certificaciones() {
     onBeforePrint: () => {
       const stringContengPDF = btoa(
         JSON.stringify({
-          referencia: componentRef.current.innerHTML,
+          referencia: componentRef,
         })
       );
       const idsCertificaciones = [

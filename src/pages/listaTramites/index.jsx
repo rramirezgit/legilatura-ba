@@ -4,6 +4,7 @@ import { useReactToPrint } from "react-to-print";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
+import { inboxData } from "../../mock/data";
 import { columnsInbox } from "./colums";
 import { getListaTramites } from "./ListaTamitesLogica";
 
@@ -19,7 +20,7 @@ export default function ListaTramites() {
 
   const printPdf = (stringContentb64) => {
     const decodedString = atob(stringContentb64);
-    setPDFDocument(decodedString.referencia);
+    setPDFDocument(JSON.parse(decodedString)?.referencia);
   };
 
   useEffect(() => {
