@@ -201,7 +201,7 @@ export default function Certificaciones() {
           display: "none",
         }}
       >
-        <MyDocument referencia={documentRef} rows={rows} />
+        <MyDocument referencia={documentRef} rows={rows} user={user} />
       </div>
     </>
   );
