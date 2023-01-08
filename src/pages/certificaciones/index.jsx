@@ -42,7 +42,7 @@ export default function Certificaciones() {
           referencia: {
             rows,
             currentDate: new Date().toLocaleDateString(),
-            user: user.name,
+            user: { name: user.name },
           },
         })
       );
