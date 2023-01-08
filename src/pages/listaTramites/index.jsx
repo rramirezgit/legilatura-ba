@@ -15,7 +15,7 @@ export default function ListaTramites() {
   const { user } = useContext(AuthContextTheme);
 
   const handlePrint = useReactToPrint({
-    content: () => PDFDocument?.current,
+    content: () => PDFDocument,
   });
 
   const printPdf = (stringContentb64) => {
@@ -30,7 +30,7 @@ export default function ListaTramites() {
   }, []);
 
   useEffect(() => {
-    if (PDFDocument?.current) {
+    if (PDFDocument) {
       handlePrint();
     }
   }, [PDFDocument]);
