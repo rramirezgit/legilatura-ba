@@ -1,5 +1,5 @@
 import { Box, Paper } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import MyDocument from "../../components/common/myDocument";
 import Table from "../../components/common/Table";
@@ -14,20 +14,26 @@ export default function ListaTramites() {
   const [columns, setColumns] = useState([]);
   const [rows, setRows] = useState(false);
   const { user } = useContext(AuthContextTheme);
+  const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
-    content: () => (
-      <MyDocument
-        rows={PDFDocument.rows}
-        currentDate={PDFDocument.currentDate}
-        user={PDFDocument.user}
-      />
-    ),
+    content: () => componentRef.current,
   });
 
   const printPdf = (stringContentb64) => {
     const decodedString = atob(stringContentb64);
     setPDFDocument(JSON.parse(decodedString)?.referencia);
+  };
+
+  const DocumentPDF = () => {
+    return (
+      <MyDocument
+        referencia={componentRef}
+        rows={PDFDocument.rows}
+        currentDate={PDFDocument.currentDate}
+        user={PDFDocument.user}
+      />
+    );
   };
 
   useEffect(() => {
@@ -38,9 +44,15 @@ export default function ListaTramites() {
 
   useEffect(() => {
     if (PDFDocument) {
-      handlePrint();
+      DocumentPDF();
     }
   }, [PDFDocument]);
+
+  useEffect(() => {
+    if (componentRef.current) {
+      handlePrint();
+    }
+  }, [componentRef]);
 
   return (
     <>
