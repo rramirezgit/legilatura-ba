@@ -1,5 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
@@ -7,13 +8,31 @@ import { columnsInbox } from "./colums";
 import { getListaTramites } from "./ListaTamitesLogica";
 
 export default function ListaTramites() {
+  const [PDFDocument, setPDFDocument] = useState(null);
+  const [columns, setColumns] = useState([]);
   const [rows, setRows] = useState(false);
   const { user } = useContext(AuthContextTheme);
+
+  const handlePrint = useReactToPrint({
+    content: () => PDFDocument?.current,
+  });
+
+  const printPdf = (stringContentb64) => {
+    const decodedString = atob(stringContentb64);
+    setPDFDocument(decodedString.referencia);
+  };
 
   useEffect(() => {
     document.title = "Legislatura - Lista de Tramites";
     getListaTramites(user.Cuil, setRows);
+    setColumns(columnsInbox(printPdf));
   }, []);
+
+  useEffect(() => {
+    if (PDFDocument?.current) {
+      handlePrint();
+    }
+  }, [PDFDocument]);
 
   return (
     <>
@@ -31,7 +50,7 @@ export default function ListaTramites() {
         >
           <Paper elevation={3}>
             <Table
-              columns={columnsInbox}
+              columns={columns}
               EmptyMessage="No hay datos"
               dataRows={rows}
               style={{ height: "calc(100vh - 130px)", width: "100%" }}

@@ -2,17 +2,7 @@ import { GridActionsCellItem } from "@mui/x-data-grid";
 import PrintIcon from "@mui/icons-material/Print";
 import { useReactToPrint } from "react-to-print";
 
-const PrintPdf = (stringContentb64) => {
-  const decodedString = atob(stringContentb64);
-
-  const handlePrint = useReactToPrint({
-    content: () => decodedString.referencia,
-  });
-
-  return <></>;
-};
-
-export const columnsInbox = [
+export const columnsInbox = (printPdf) => [
   {
     field: "tipoTramite",
     width: 130,
@@ -79,7 +69,7 @@ export const columnsInbox = [
       <GridActionsCellItem
         icon={<PrintIcon color={"primary"} />}
         label="Delete"
-        onClick={() => PrintPdf(params.row.documentoPDF)}
+        onClick={() => printPdf(params.row.documentoPDF)}
       />,
     ],
   },
