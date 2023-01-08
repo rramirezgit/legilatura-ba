@@ -25,17 +25,6 @@ export default function ListaTramites() {
     setPDFDocument(JSON.parse(decodedString)?.referencia);
   };
 
-  const DocumentPDF = () => {
-    return (
-      <MyDocument
-        referencia={componentRef}
-        rows={PDFDocument.rows}
-        currentDate={PDFDocument.currentDate}
-        user={PDFDocument.user}
-      />
-    );
-  };
-
   useEffect(() => {
     document.title = "Legislatura - Lista de Tramites";
     getListaTramites(user.Cuil, setRows);
@@ -43,16 +32,12 @@ export default function ListaTramites() {
   }, []);
 
   useEffect(() => {
-    if (PDFDocument) {
-      DocumentPDF();
+    if (componentRef.current) {
+      setTimeout(() => {
+        handlePrint();
+      }, 1000);
     }
   }, [PDFDocument]);
-
-  useEffect(() => {
-    if (componentRef.current) {
-      handlePrint();
-    }
-  }, [componentRef]);
 
   return (
     <>
@@ -78,6 +63,20 @@ export default function ListaTramites() {
           </Paper>
         </Box>
       </AppLayout>
+      <div
+        style={{
+          display: "none",
+        }}
+      >
+        {Object.keys(PDFDocument).length > 0 && (
+          <MyDocument
+            referencia={componentRef}
+            rows={PDFDocument?.rows}
+            currentDate={PDFDocument?.currentDate}
+            user={PDFDocument?.user}
+          />
+        )}
+      </div>
     </>
   );
 }
