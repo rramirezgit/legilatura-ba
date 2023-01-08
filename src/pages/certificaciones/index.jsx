@@ -17,6 +17,7 @@ import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
 import { dataCertificaciones } from "../../mock/data";
+import { editMasterCertificationList } from "../../services";
 import {
   getMasterCertificationList,
   handleSave,
@@ -33,6 +34,28 @@ export default function Certificaciones() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+    onBeforePrint: () => {
+      const stringContengPDF = btoa(componentRef.current.innerHTML);
+      const idsCertificaciones = [
+        ...new Set(rows.map((row) => row.idCertificacion)),
+      ];
+
+      const allEditMasterCertificationList = idsCertificaciones.map(
+        (idCertificacion) => {
+          return editMasterCertificationList(idCertificacion, {
+            id: idCertificacion,
+            fechaCertificacion: new Date(),
+            fechaDecision: new Date(),
+            estado: "I",
+            documentoPDF: stringContengPDF,
+          });
+        }
+      );
+
+      Promise.all(allEditMasterCertificationList).then((res) => {
+        debugger;
+      });
+    },
   });
 
   const handleSign = () => {
@@ -170,17 +193,17 @@ export default function Certificaciones() {
                 </FormControl>
               )}
 
-            {/* {rows.length > 0 &&
+            {rows.length > 0 &&
               user.ProfileDesc === "Director" &&
-              new Date().getMonth() === new Date(periodo).getMonth() && ( */}
-            <Button
-              sx={{ float: "right", margin: "10px 5px" }}
-              variant="contained"
-              onClick={handleSign}
-            >
-              Firmar
-            </Button>
-            {/* )} */}
+              new Date().getMonth() === new Date(periodo).getMonth() && (
+                <Button
+                  sx={{ float: "right", margin: "10px 5px" }}
+                  variant="contained"
+                  onClick={handleSign}
+                >
+                  Firmar
+                </Button>
+              )}
             {rows.length > 0 &&
               new Date().getMonth() === new Date(periodo).getMonth() && (
                 <Button
