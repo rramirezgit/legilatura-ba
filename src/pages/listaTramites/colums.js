@@ -1,3 +1,15 @@
+import { GridActionsCellItem } from "@mui/x-data-grid";
+import PrintIcon from "@mui/icons-material/Print";
+import { useReactToPrint } from "react-to-print";
+
+const PrintPdf = (stringContentb64) => {
+  const decodedString = atob(stringContentb64);
+
+  const handlePrint = useReactToPrint({
+    content: () => decodedString.referencia,
+  });
+};
+
 export const columnsInbox = [
   {
     field: "tipoTramite",
@@ -57,10 +69,16 @@ export const columnsInbox = [
     type: "text",
     editable: false,
   },
-  //{
-  //  field: "claves",
-  //  headerName: "Claves",
-  //  type: "text",
-  //  editable: false,
-  //},
+  {
+    field: "actions",
+    type: "actions",
+    width: 80,
+    getActions: (params) => [
+      <GridActionsCellItem
+        icon={<PrintIcon color={"primary"} />}
+        label="Delete"
+        onClick={() => PrintPdf(params.row.documentoPDF)}
+      />,
+    ],
+  },
 ];

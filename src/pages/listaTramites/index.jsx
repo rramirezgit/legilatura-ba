@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
+import { inboxData } from "../../mock/data";
 import { columnsInbox } from "./colums";
 import { getListaTramites } from "./ListaTamitesLogica";
 
@@ -33,7 +34,7 @@ export default function ListaTramites() {
             <Table
               columns={columnsInbox}
               EmptyMessage="No hay datos"
-              dataRows={rows}
+              dataRows={inboxData}
               style={{ height: "calc(100vh - 130px)", width: "100%" }}
             />
           </Paper>
