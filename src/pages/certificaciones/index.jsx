@@ -37,13 +37,13 @@ export default function Certificaciones() {
     onBeforePrint: () => {
       const stringContengPDF = btoa(componentRef.current.innerHTML);
       const idsCertificaciones = [
-        ...new Set(rows.map((row) => row.idCertificacion)),
+        ...new Set(rows.map((row) => row.idCerticicacion)),
       ];
 
       const allEditMasterCertificationList = idsCertificaciones.map(
-        (idCertificacion) => {
-          return editMasterCertificationList(idCertificacion, {
-            id: idCertificacion,
+        (idCerticicacion) => {
+          return editMasterCertificationList(idCerticicacion, {
+            id: idCerticicacion,
             fechaCertificacion: new Date(),
             fechaDecision: new Date(),
             estado: "I",
