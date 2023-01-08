@@ -10,7 +10,7 @@ import { columnsInbox } from "./colums";
 import { getListaTramites } from "./ListaTamitesLogica";
 
 export default function ListaTramites() {
-  const [PDFDocument, setPDFDocument] = useState(null);
+  const [PDFDocument, setPDFDocument] = useState({});
   const [columns, setColumns] = useState([]);
   const [rows, setRows] = useState(false);
   const { user } = useContext(AuthContextTheme);
@@ -32,7 +32,7 @@ export default function ListaTramites() {
   }, []);
 
   useEffect(() => {
-    if (componentRef.current) {
+    if (componentRef?.current) {
       setTimeout(() => {
         handlePrint();
       }, 1000);
