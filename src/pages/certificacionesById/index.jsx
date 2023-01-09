@@ -125,7 +125,7 @@ export default function Certificaciones() {
             (idCerticicacion) => {
               return persistCertification(idCerticicacion, {
                 id: idCerticicacion,
-                fechaCertificacion: new Date(),
+                fechaCertificacion: new Date().toISOString().slice(0, 10),
                 fechaDecision: new Date(),
                 estado: value,
               });
