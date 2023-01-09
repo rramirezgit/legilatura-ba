@@ -21,6 +21,7 @@ import { dataCertificaciones } from "../../mock/data";
 import {
   editDetailCertificationList,
   editMasterCertificationList,
+  persistCertification,
 } from "../../services";
 import {
   getMasterCertificationList,
@@ -122,6 +123,60 @@ export default function Certificaciones() {
         // setState("I");
         // navigate("/");
         handlePrint();
+      }
+    });
+  };
+
+  const handleActionCertification = (value) => {
+    Swal.fire({
+      title: "Seguro que desea cambiar el estado?",
+      icon: "warning",
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      focusCancel: true,
+      confirmButtonAriaLabel: "Thumbs up, great!",
+      cancelButtonAriaLabel: "Thumbs down",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const idsCertificaciones = [...new Set(rows.map((row) => row))];
+
+        if (idsCertificaciones.length > 0) {
+          const allCertifications = idsCertificaciones.map((row) => {
+            return persistCertification(row.idCerticicacion, {
+              id: row.idCerticicacion,
+              fechaCertificacion: row.fechaCertificacion,
+              fechaDecision: new Date(),
+              estado: value,
+            });
+          });
+
+          Promise.all(allCertifications).then((res) => {
+            if (res.length > 0) {
+              Promise.all(
+                rows.map((item) => {
+                  let body = {
+                    id: item.id,
+                    horario: item.horario,
+                    novedad: item.novedad,
+                    estado: value,
+                  };
+
+                  return editDetailCertificationList(item.id, body);
+                })
+              ).then((res) => {
+                if (res.length > 0) {
+                  getMasterCertificationList({
+                    cuil: user.Cuil,
+                    periodo: new Date(periodo).toISOString().slice(0, 7),
+                    fnSetRows: setRows,
+                  });
+                }
+              });
+            }
+          });
+        }
       }
     });
   };
@@ -247,9 +302,12 @@ export default function Certificaciones() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Acción Certificación"
+                    onChange={(e) => {
+                      handleActionCertification(e.target.value);
+                    }}
                   >
-                    <MenuItem value={10}>Aceptar</MenuItem>
-                    <MenuItem value={20}>Rechazar</MenuItem>
+                    <MenuItem value={"A"}>Aceptar</MenuItem>
+                    <MenuItem value={"R"}>Rechazar</MenuItem>
                   </Select>
                 </FormControl>
               )}
