@@ -40,8 +40,6 @@ export const colums = [
   },
   {
     field: "estado",
-    headerName: "Certificado",
-    type: "boolean",
-    editable: false,
+    headerName: "Estado",
   },
 ];
