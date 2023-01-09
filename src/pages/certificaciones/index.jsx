@@ -32,6 +32,7 @@ import { colums } from "./columns";
 export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date());
   const [rows, setRows] = useState([]);
+  const [rowsInBorrador, setRowsInBorrador] = useState([]);
   const { user } = useContext(AuthContextTheme);
   const [selectedRows, setSelectedRows] = useState([]);
   const componentRef = useRef();
@@ -49,16 +50,9 @@ export default function Certificaciones() {
           },
         })
       );
-      const idsCertificaciones = [
-        ...new Set(
-          rows
-            .filter((row) => row.estado === "B")
-            .map((row) => row.idCerticicacion)
-        ),
-      ];
 
-      if (idsCertificaciones.length > 0) {
-        const allEditMasterCertificationList = idsCertificaciones.map(
+      if (rowsInBorrador?.length > 0) {
+        const allEditMasterCertificationList = rowsInBorrador.map(
           (idCerticicacion) => {
             return editMasterCertificationList(idCerticicacion, {
               id: idCerticicacion,
@@ -96,7 +90,7 @@ export default function Certificaciones() {
         });
       } else {
         Swal.fire({
-          title: "No hay certificaciones para firmar",
+          title: "Ya se encontraba firmado",
           icon: "warning",
           showCloseButton: true,
           showCancelButton: false,
@@ -139,6 +133,19 @@ export default function Certificaciones() {
       fnSetRows: setRows,
     });
   }, []);
+
+  useEffect(() => {
+    if (rows.length > 0) {
+      const idsCertificaciones = [
+        ...new Set(
+          rows
+            .filter((row) => row.estado === "B")
+            .map((row) => row.idCerticicacion)
+        ),
+      ];
+      setRowsInBorrador(idsCertificaciones);
+    }
+  }, [rows]);
 
   return (
     <>
@@ -249,7 +256,8 @@ export default function Certificaciones() {
 
             {rows.length > 0 &&
               user.ProfileDesc === "Director" &&
-              new Date().getMonth() === new Date(periodo).getMonth() && (
+              new Date().getMonth() === new Date(periodo).getMonth() &&
+              rowsInBorrador.length > 0 && (
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
