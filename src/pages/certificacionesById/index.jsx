@@ -148,20 +148,19 @@ export default function Certificaciones() {
   };
 
   const onCellEditCommit = (params) => {
+    let rowsNew = [...rows];
+    let data = rowsNew.map((row) => {
+      if (params.id === row.id) {
+        return {
+          ...row,
+          [params.field]: params.value,
+        };
+      } else {
+        return row;
+      }
+    });
     if (params.field !== "estado") {
       setSelectedRows([...selectedRows, params.id]);
-
-      let rowsNew = [...rows];
-      let data = rowsNew.map((row) => {
-        if (params.id === row.id) {
-          return {
-            ...row,
-            [params.field]: params.value,
-          };
-        } else {
-          return row;
-        }
-      });
 
       setRows(data);
     } else {
@@ -177,13 +176,15 @@ export default function Certificaciones() {
         cancelButtonAriaLabel: "Thumbs down",
       }).then((result) => {
         if (result.isConfirmed) {
+          let rowCertificated = data.filter((row) => row.id === params.id)[0];
+
           let body = {
-            id: params.row.id,
-            horario: params.row.horario,
-            novedad: params.row.novedad,
-            estado: params.row.estado ? "1" : "0",
+            id: rowCertificated.id,
+            horario: rowCertificated.horario,
+            novedad: rowCertificated.novedad,
+            estado: rowCertificated.estado ? "1" : "0",
           };
-          editDetailCertificationList(params.row.id, body);
+          editDetailCertificationList(rowCertificated.id, body);
         }
       });
     }
