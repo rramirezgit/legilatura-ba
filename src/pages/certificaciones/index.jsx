@@ -241,7 +241,7 @@ export default function Certificaciones() {
               onClick={() => {
                 postMasterCertification({
                   data: {
-                    periodo: periodo,
+                    periodo: new Date(periodo).toISOString().slice(0, 10),
                     dependencia: user.IdDependency,
                     cuitCertificante: user.Cuil,
                     estado: "B",
