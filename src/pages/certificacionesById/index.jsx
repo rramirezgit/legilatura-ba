@@ -91,7 +91,9 @@ export default function Certificaciones() {
             )}
           /> */}
           <Typography variant="h6" component="div">
-            {`Periodo: ${new Date(periodo).toLocaleDateString()}`}
+            {`Periodo de la Certificación: ${new Date(
+              periodo
+            ).toLocaleDateString()}`}
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {`Estado: ${state}`}
