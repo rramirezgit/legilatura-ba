@@ -67,7 +67,7 @@ export default function Certificaciones() {
           return editMasterCertificationList(idCerticicacion, {
             id: idCerticicacion,
             fechaCertificacion: new Date(),
-            fechaDecision: new Date(),
+            fechaDecision: null,
             estado: "I",
             documentoPDF: stringContengPDF,
           });
@@ -116,17 +116,23 @@ export default function Certificaciones() {
       cancelButtonAriaLabel: "Thumbs down",
     }).then((result) => {
       if (result.isConfirmed) {
-        const idsCertificaciones = [...new Set(rows.map((row) => row))];
+        const idsCertificaciones = [
+          ...new Set(rows.map((row) => row.idCerticicacion)),
+        ];
 
         if (idsCertificaciones.length > 0) {
-          const allCertifications = idsCertificaciones.map((row) => {
-            return persistCertification(row.idCerticicacion, {
-              id: row.idCerticicacion,
-              fechaCertificacion: row.fechaCertificacion,
-              fechaDecision: new Date(),
-              estado: value,
-            });
-          });
+          const allCertifications = idsCertificaciones.map(
+            (idCerticicacion) => {
+              return persistCertification(idCerticicacion, {
+                id: idCerticicacion,
+                fechaCertificacion: rows.filter(
+                  (row) => row.idCerticicacion === idCerticicacion
+                )[0].fechaCertificacion,
+                fechaDecision: new Date(),
+                estado: value,
+              });
+            }
+          );
 
           Promise.all(allCertifications).then((res) => {
             if (res.length > 0) {

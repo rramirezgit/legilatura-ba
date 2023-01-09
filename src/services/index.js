@@ -116,6 +116,6 @@ export const deleteUserProfile = (id) => {
   return api.delete(`api/UserProfile/${id}`);
 };
 /* Persiste certificación en SGP, mediante el ID de la certificación NO SGP */
-export const persistCertification = (id) => {
-  return api.put(`api/ConfirmCertification/${id}`);
+export const persistCertification = (id, data) => {
+  return api.put(`api/ConfirmCertification/${id}`, data);
 };
