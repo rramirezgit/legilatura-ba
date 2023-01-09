@@ -64,7 +64,9 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
 };
 
 const filtraPeriodo = (data, periodo) => {
-  return data.filter((item) => item.periodo === periodo);
+  return data.filter(
+    (item) => item.periodo === new Date(periodo).toISOString().slice(0, 7)
+  );
 };
 
 export const postMasterCertification = async ({ data, fnSetRows }) => {
