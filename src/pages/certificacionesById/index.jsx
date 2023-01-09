@@ -125,9 +125,7 @@ export default function Certificaciones() {
             (idCerticicacion) => {
               return persistCertification(idCerticicacion, {
                 id: idCerticicacion,
-                fechaCertificacion: rows.filter(
-                  (row) => row.idCerticicacion === idCerticicacion
-                )[0].fechaCertificacion,
+                fechaCertificacion: new Date(),
                 fechaDecision: new Date(),
                 estado: value,
               });
