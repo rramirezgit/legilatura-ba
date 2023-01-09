@@ -224,7 +224,9 @@ export default function Certificaciones() {
               from="admin-cert"
               columns={colums}
               dataRows={rows}
-              isCellEditable={() => permissions.canEdit}
+              isCellEditable={(params) =>
+                permissions.canEdit && params.row.estado === "0"
+              }
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
             />
             {rows.length > 0 && permissions.canChangeState && (

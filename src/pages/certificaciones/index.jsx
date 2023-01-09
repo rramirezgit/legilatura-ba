@@ -279,8 +279,9 @@ export default function Certificaciones() {
               from="admin-cert"
               EmptyMessage="No hay datos"
               columns={colums}
-              isCellEditable={() =>
-                new Date().getMonth() === new Date(periodo).getMonth()
+              isCellEditable={(params) =>
+                new Date().getMonth() === new Date(periodo).getMonth() &&
+                params.row.estado !== "1"
               }
               dataRows={rows}
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
