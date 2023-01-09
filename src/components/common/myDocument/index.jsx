@@ -65,7 +65,7 @@ const MyDocument = ({
                 }}
               >
                 <TableContainer component={Paper}>
-                  <Table>
+                  <Table size="small">
                     <TableHead>
                       <TableRow>
                         {colums.map((col, index) => {

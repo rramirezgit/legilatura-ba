@@ -40,6 +40,6 @@ export const colums = [
   },
   {
     field: "estado",
-    headerName: "Estado",
+    headerName: "Certificado",
   },
 ];
