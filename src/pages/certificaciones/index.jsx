@@ -50,45 +50,62 @@ export default function Certificaciones() {
         })
       );
       const idsCertificaciones = [
-        ...new Set(rows.map((row) => row.idCerticicacion)),
+        ...new Set(
+          rows
+            .filter((row) => row.estado === "B")
+            .map((row) => row.idCerticicacion)
+        ),
       ];
 
-      const allEditMasterCertificationList = idsCertificaciones.map(
-        (idCerticicacion) => {
-          return editMasterCertificationList(idCerticicacion, {
-            id: idCerticicacion,
-            fechaCertificacion: new Date(),
-            fechaDecision: new Date(),
-            estado: "I",
-            documentoPDF: stringContengPDF,
-          });
-        }
-      );
+      if (idsCertificaciones.length > 0) {
+        const allEditMasterCertificationList = idsCertificaciones.map(
+          (idCerticicacion) => {
+            return editMasterCertificationList(idCerticicacion, {
+              id: idCerticicacion,
+              fechaCertificacion: new Date(),
+              fechaDecision: new Date(),
+              estado: "I",
+              documentoPDF: stringContengPDF,
+            });
+          }
+        );
 
-      Promise.all(allEditMasterCertificationList).then((res) => {
-        if (res.length > 0) {
-          Promise.all(
-            rows.map((item) => {
-              let body = {
-                id: item.id,
-                horario: item.horario,
-                novedad: item.novedad,
-                estado: "I",
-              };
+        Promise.all(allEditMasterCertificationList).then((res) => {
+          if (res.length > 0) {
+            Promise.all(
+              rows.map((item) => {
+                let body = {
+                  id: item.id,
+                  horario: item.horario,
+                  novedad: item.novedad,
+                  estado: "I",
+                };
 
-              return editDetailCertificationList(item.id, body);
-            })
-          ).then((res) => {
-            if (res.length > 0) {
-              getMasterCertificationList({
-                cuil: user.Cuil,
-                periodo: new Date(periodo).toISOString().slice(0, 7),
-                fnSetRows: setRows,
-              });
-            }
-          });
-        }
-      });
+                return editDetailCertificationList(item.id, body);
+              })
+            ).then((res) => {
+              if (res.length > 0) {
+                getMasterCertificationList({
+                  cuil: user.Cuil,
+                  periodo: new Date(periodo).toISOString().slice(0, 7),
+                  fnSetRows: setRows,
+                });
+              }
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "No hay certificaciones para firmar",
+          icon: "warning",
+          showCloseButton: true,
+          showCancelButton: false,
+          confirmButtonText: "Ok",
+          focusCancel: true,
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonAriaLabel: "Thumbs down",
+        });
+      }
     },
     onAfterPrint: () => {
       navigate("/");
