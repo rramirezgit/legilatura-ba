@@ -257,20 +257,23 @@ export default function Certificaciones() {
                 setSelectedRows(ids);
               }}
               onCellEditCommit={(params) => {
-                setSelectedRows([...selectedRows, params.id]);
+                if (params.field !== "estado") {
+                  setSelectedRows([...selectedRows, params.id]);
 
-                let rowsNew = [...rows];
-                let data = rowsNew.map((row) => {
-                  if (params.id === row.id) {
-                    return {
-                      ...row,
-                      [params.field]: params.value,
-                    };
-                  } else {
-                    return row;
-                  }
-                });
-                setRows(data);
+                  let rowsNew = [...rows];
+                  let data = rowsNew.map((row) => {
+                    if (params.id === row.id) {
+                      return {
+                        ...row,
+                        [params.field]: params.value,
+                      };
+                    } else {
+                      return row;
+                    }
+                  });
+
+                  setRows(data);
+                }
               }}
               selectionModel={selectedRows}
               from="admin-cert"
