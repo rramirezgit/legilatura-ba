@@ -26,6 +26,7 @@ import { getMasterCertificationList } from "../certificaciones/certificacionesLo
 import MyDocument from "../../components/common/myDocument";
 import { useReactToPrint } from "react-to-print";
 import Swal from "sweetalert2";
+import { editMasterCertificationList } from "../../services";
 
 export default function Certificaciones() {
   const location = useLocation();
@@ -43,6 +44,39 @@ export default function Certificaciones() {
 
   const handlePrint = useReactToPrint({
     content: () => documentRef.current,
+    onBeforePrint: () => {
+      const stringContengPDF = btoa(
+        JSON.stringify({
+          referencia: {
+            rows,
+            currentDate: new Date().toLocaleDateString(),
+            user: { name: user.name },
+          },
+        })
+      );
+      const idsCertificaciones = [
+        ...new Set(rows.map((row) => row.idCerticicacion)),
+      ];
+
+      const allEditMasterCertificationList = idsCertificaciones.map(
+        (idCerticicacion) => {
+          return editMasterCertificationList(idCerticicacion, {
+            id: idCerticicacion,
+            fechaCertificacion: new Date(),
+            fechaDecision: new Date(),
+            estado: "I",
+            documentoPDF: stringContengPDF,
+          });
+        }
+      );
+
+      Promise.all(allEditMasterCertificationList).then((res) => {
+        console.log(res);
+      });
+    },
+    onAfterPrint: () => {
+      navigate("/");
+    },
   });
 
   useEffect(() => {

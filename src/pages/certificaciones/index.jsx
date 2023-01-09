@@ -18,7 +18,10 @@ import Table from "../../components/common/Table";
 import AppLayout from "../../components/layouts/AppLayout";
 import { AuthContextTheme } from "../../context/Auth";
 import { dataCertificaciones } from "../../mock/data";
-import { editMasterCertificationList } from "../../services";
+import {
+  editDetailCertificationList,
+  editMasterCertificationList,
+} from "../../services";
 import {
   getMasterCertificationList,
   handleSave,
@@ -63,7 +66,28 @@ export default function Certificaciones() {
       );
 
       Promise.all(allEditMasterCertificationList).then((res) => {
-        console.log(res);
+        if (res.length > 0) {
+          Promise.all(
+            rows.map((item) => {
+              let body = {
+                id: item.id,
+                horario: item.horario,
+                novedad: item.novedad,
+                estado: "I",
+              };
+
+              return editDetailCertificationList(item.id, body);
+            })
+          ).then((res) => {
+            if (res.length > 0) {
+              getMasterCertificationList({
+                cuil: user.Cuil,
+                periodo: new Date(periodo).toISOString().slice(0, 7),
+                fnSetRows: setRows,
+              });
+            }
+          });
+        }
       });
     },
     onAfterPrint: () => {
