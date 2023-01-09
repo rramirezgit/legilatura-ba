@@ -72,7 +72,7 @@ export default function Certificaciones() {
           alignItems="flex-end"
           gap="20px"
         >
-          <DatePicker
+          {/* <DatePicker
             views={["year", "month"]}
             openTo="month"
             label="Período de la Certificación"
@@ -88,7 +88,7 @@ export default function Certificaciones() {
             renderInput={(params) => (
               <TextField variant="standard" {...params} />
             )}
-          />
+          /> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {`Estado: ${state}`}
           </Typography>

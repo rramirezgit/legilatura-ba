@@ -30,7 +30,6 @@ export default function Table({
         localeText={{
           toolbarColumns: "Columnas",
           toolbarFilters: "Filtros",
-          toolbarExport: "Exportar",
         }}
         components={{
           NoRowsOverlay: () => CustomNoRowsOverlay({ Message: EmptyMessage }),
