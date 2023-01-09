@@ -51,6 +51,7 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
             itemResponse.data.forEach((item) => {
               data.push({
                 ...item,
+                estado: item.estado === "B" ? false : true,
               });
             });
           }

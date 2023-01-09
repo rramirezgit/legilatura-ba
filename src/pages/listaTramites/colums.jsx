@@ -56,8 +56,8 @@ export const columnsInbox = (printPdf) => [
   },
   {
     field: "estado",
-    headerName: "Estado",
-    type: "text",
+    headerName: "Certificado",
+    type: "boolean",
     editable: false,
   },
   {

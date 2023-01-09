@@ -43,6 +43,8 @@ export const colums = [
   },
   {
     field: "estado",
-    headerName: "Estado",
+    headerName: "Certificado",
+    type: "boolean",
+    editable: false,
   },
 ];
