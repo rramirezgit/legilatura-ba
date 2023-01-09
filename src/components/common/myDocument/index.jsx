@@ -80,6 +80,13 @@ const MyDocument = ({
                         return (
                           <TableRow key={index}>
                             {colums.map((col, index) => {
+                              if (col.field === "estado") {
+                                return (
+                                  <TableCell key={index}>
+                                    {row[col.field] === "B" ? false : true}
+                                  </TableCell>
+                                );
+                              }
                               return (
                                 <TableCell key={index}>
                                   {row[col.field]}
