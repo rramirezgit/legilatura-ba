@@ -75,7 +75,7 @@ export const postMasterCertification = async ({ data, fnSetRows }) => {
     .then((response) => {
       if (Object.keys(response).length > 0) {
         getMasterCertificationList({
-          cuil: data.cuil,
+          cuil: data.cuitCertificante,
           periodo: data.periodo,
           fnSetRows,
         });
