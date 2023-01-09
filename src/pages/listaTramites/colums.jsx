@@ -70,7 +70,7 @@ export const columnsInbox = (printPdf) => [
         label="Delete"
         onClick={() => printPdf(params.row.documentoPDF)}
         style={{
-          display: params.row.documentoPDF.length > 0 ? "block" : "none",
+          display: params.row.documentoPDF?.length > 0 ? "block" : "none",
         }}
       />,
     ],
