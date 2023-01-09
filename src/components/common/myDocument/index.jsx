@@ -20,7 +20,7 @@ const MyDocument = ({
   user,
 }) => {
   const PDFDocument = () => {
-    const rowsPerPage = 15;
+    const rowsPerPage = 17;
     const pages = Math.ceil(rows.length / rowsPerPage);
     const pagesArray = Array.from(Array(pages).keys());
 
