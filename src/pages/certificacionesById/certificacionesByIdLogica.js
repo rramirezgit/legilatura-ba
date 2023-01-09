@@ -92,7 +92,8 @@ export const getDetailCertificationList = async (id, fnSetRows) => {
         let data = response.data.map((item) => ({
           ...item,
           novedad: item.novedad ? item.novedad : "-",
-          estado: item.estado === "B" ? false : true,
+          estado: item.estado,
+          certificado: item.estado === "B" ? false : true,
         }));
         fnSetRows(data);
       } else {

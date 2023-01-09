@@ -51,7 +51,8 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
             itemResponse.data.forEach((item) => {
               data.push({
                 ...item,
-                estado: item.estado === "B" ? false : true,
+                estado: item.estado,
+                certificado: item.estado === "B" ? false : true,
               });
             });
           }
