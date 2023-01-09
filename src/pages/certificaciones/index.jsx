@@ -281,7 +281,7 @@ export default function Certificaciones() {
               columns={colums}
               isCellEditable={(params) =>
                 new Date().getMonth() === new Date(periodo).getMonth() &&
-                params.row.estado !== "1"
+                params.row.estado
               }
               dataRows={rows}
               style={{ height: "calc(100vh - 250px)", width: "100%" }}
