@@ -45,7 +45,7 @@ export const handleSave = ({ navigate, data, fnSetRows, periodo, cuil }) => {
             id: item.id,
             horario: item.horario,
             novedad: item.novedad,
-            estado: item.estado,
+            estado: item.estado ? "1" : "0",
           };
           return editDetailCertificationList(item.id, body);
         })
@@ -92,8 +92,7 @@ export const getDetailCertificationList = async (id, fnSetRows) => {
         let data = response.data.map((item) => ({
           ...item,
           novedad: item.novedad ? item.novedad : "-",
-          estado: item.estado,
-          certificado: item.estado === "B" ? false : true,
+          estado: item.estado === "0" ? false : true,
         }));
         fnSetRows(data);
       } else {

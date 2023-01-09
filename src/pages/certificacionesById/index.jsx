@@ -125,34 +125,20 @@ export default function Certificaciones() {
             (idCerticicacion) => {
               return persistCertification(idCerticicacion, {
                 id: idCerticicacion,
-                fechaCertificacion: new Date(),
+                fechaCertificacion: rows.filter(
+                  (row) => row.idCerticicacion === idCerticicacion
+                )[0].fechaCertificacion,
                 fechaDecision: new Date(),
                 estado: value,
               });
             }
           );
-
           Promise.all(allCertifications).then((res) => {
             if (res.length > 0) {
-              Promise.all(
-                rows.map((item) => {
-                  let body = {
-                    id: item.id,
-                    horario: item.horario,
-                    novedad: item.novedad,
-                    estado: value,
-                  };
-
-                  return editDetailCertificationList(item.id, body);
-                })
-              ).then((res) => {
-                if (res.length > 0) {
-                  getMasterCertificationList({
-                    cuil: user.Cuil,
-                    periodo: new Date(periodo).toISOString().slice(0, 10),
-                    fnSetRows: setRows,
-                  });
-                }
+              getMasterCertificationList({
+                cuil: user.Cuil,
+                periodo: new Date(periodo).toISOString().slice(0, 10),
+                fnSetRows: setRows,
               });
             }
           });

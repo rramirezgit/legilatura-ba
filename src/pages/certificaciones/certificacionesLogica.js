@@ -51,8 +51,7 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
             itemResponse.data.forEach((item) => {
               data.push({
                 ...item,
-                estado: item.estado,
-                certificado: item.estado === "B" ? false : true,
+                estado: item.estado === "0" ? false : true,
               });
             });
           }
@@ -109,7 +108,7 @@ export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
             id: item.id,
             horario: item.horario,
             novedad: item.novedad,
-            estado: item.estado,
+            estado: item.estado ? "1" : "0",
           };
 
           return editDetailCertificationList(item.id, body);

@@ -73,7 +73,7 @@ export default function Certificaciones() {
                   id: item.id,
                   horario: item.horario,
                   novedad: item.novedad,
-                  estado: "I",
+                  estado: item.estado,
                 };
 
                 return editDetailCertificationList(item.id, body);
@@ -157,28 +157,12 @@ export default function Certificaciones() {
               });
             }
           );
-
           Promise.all(allCertifications).then((res) => {
             if (res.length > 0) {
-              Promise.all(
-                rows.map((item) => {
-                  let body = {
-                    id: item.id,
-                    horario: item.horario,
-                    novedad: item.novedad,
-                    estado: value,
-                  };
-
-                  return editDetailCertificationList(item.id, body);
-                })
-              ).then((res) => {
-                if (res.length > 0) {
-                  getMasterCertificationList({
-                    cuil: user.Cuil,
-                    periodo: new Date(periodo).toISOString().slice(0, 10),
-                    fnSetRows: setRows,
-                  });
-                }
+              getMasterCertificationList({
+                cuil: user.Cuil,
+                periodo: new Date(periodo).toISOString().slice(0, 10),
+                fnSetRows: setRows,
               });
             }
           });
