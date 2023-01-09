@@ -34,7 +34,10 @@ export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date(location.state.data.periodo));
   const [selectedRows, setSelectedRows] = useState([]);
   const [state, setState] = useState(location.state.data.estado);
-  const permissions = usePermissions(location.state.data.estado);
+  const permissions = usePermissions(
+    location.state.data.estado,
+    location.state.data.periodo
+  );
   const navigate = useNavigate();
   const documentRef = useRef();
 
