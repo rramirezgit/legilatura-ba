@@ -149,7 +149,7 @@ export default function Certificaciones() {
                 if (res.length > 0) {
                   getMasterCertificationList({
                     cuil: user.Cuil,
-                    periodo: new Date(periodo).toISOString().slice(0, 7),
+                    periodo: new Date(periodo).toISOString().slice(0, 10),
                     fnSetRows: setRows,
                   });
                 }

@@ -19,7 +19,8 @@ const usePermissions = (state, periodo) => {
       canSign:
         ProfileDesc === "Director" &&
         state === "B" &&
-        periodo === new Date().toISOString().slice(0, 7),
+        new Date(periodo).toISOString().slice(0, 7) ===
+          new Date().toISOString().slice(0, 7),
     });
   }, [ProfileDesc, state]);
 

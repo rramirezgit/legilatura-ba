@@ -34,7 +34,7 @@ export const getMasterCertificationList = async ({
 };
 
 const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
-  let formatPeriodo = new Date(periodo).toISOString().slice(0, 7);
+  let formatPeriodo = new Date(periodo).toISOString().slice(0, 10);
   let dataFiltered = filtraPeriodo(data, formatPeriodo);
   let idList = [];
   if (dataFiltered.length) {
@@ -66,7 +66,9 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
 
 const filtraPeriodo = (data, periodo) => {
   return data.filter(
-    (item) => item.periodo === new Date(periodo).toISOString().slice(0, 7)
+    (item) =>
+      new Date(item.periodo).toISOString().slice(0, 10) ===
+      new Date(periodo).toISOString().slice(0, 10)
   );
 };
 
@@ -87,7 +89,7 @@ export const postMasterCertification = async ({ data, fnSetRows }) => {
 };
 
 export const handleSave = ({ data, fnSetRows, periodo, cuil }) => {
-  let formatPeriodo = new Date(periodo).toISOString().slice(0, 7);
+  let formatPeriodo = new Date(periodo).toISOString().slice(0, 10);
   Swal.fire({
     title: "Seguro que desea Guardar?",
     icon: "warning",
