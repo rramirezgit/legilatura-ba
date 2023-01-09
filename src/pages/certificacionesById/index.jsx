@@ -201,6 +201,8 @@ export default function Certificaciones() {
                 setSelectedRows(ids);
               }}
               onCellEditCommit={(params) => {
+                setSelectedRows([...selectedRows, params.id]);
+
                 let rowsNew = [...rows];
                 let data = rowsNew.map((row) => {
                   if (params.id === row.id) {
@@ -212,9 +214,9 @@ export default function Certificaciones() {
                     return row;
                   }
                 });
-                setSelectedRows([...selectedRows, params.id]);
                 setRows(data);
               }}
+              selectionModel={selectedRows}
               EmptyMessage="No hay datos"
               from="admin-cert"
               columns={colums}
