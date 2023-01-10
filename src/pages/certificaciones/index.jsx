@@ -282,7 +282,7 @@ export default function Certificaciones() {
               selectionModel={selectedRows}
               from="admin-cert"
               EmptyMessage="No hay datos"
-              columns={colums}
+              columns={columnsData}
               isCellEditable={(params) =>
                 new Date().getMonth() === new Date(periodo).getMonth() &&
                 !params.row.estado

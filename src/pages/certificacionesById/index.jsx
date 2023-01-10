@@ -86,7 +86,6 @@ export default function Certificaciones() {
 
   useEffect(() => {
     setColumnsData(
-      /* solo certifica el director o asistente si el estado es difente este A o R */
       colums(
         location.state.data.estado !== "A" ||
           (location.state.data.estado !== "R" &&
