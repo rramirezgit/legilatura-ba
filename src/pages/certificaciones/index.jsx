@@ -192,6 +192,49 @@ export default function Certificaciones() {
     }
   }, [rows]);
 
+  const onCellEditCommit = (params) => {
+    let rowsNew = [...rows];
+    let data = rowsNew.map((row) => {
+      if (params.id === row.id) {
+        return {
+          ...row,
+          [params.field]: params.value,
+        };
+      } else {
+        return row;
+      }
+    });
+    if (params.field !== "estado") {
+      setSelectedRows([...selectedRows, params.id]);
+
+      setRows(data);
+    } else {
+      Swal.fire({
+        title: "Seguro que desea certificar?",
+        icon: "warning",
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        focusCancel: true,
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonAriaLabel: "Thumbs down",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let rowCertificated = data.filter((row) => row.id === params.id)[0];
+
+          let body = {
+            id: rowCertificated.id,
+            horario: rowCertificated.horario,
+            novedad: rowCertificated.novedad,
+            estado: rowCertificated.estado ? "1" : "0",
+          };
+          editDetailCertificationList(rowCertificated.id, body);
+        }
+      });
+    }
+  };
+
   return (
     <>
       <AppLayout>
@@ -256,25 +299,7 @@ export default function Certificaciones() {
               onSelectionModelChange={(ids) => {
                 setSelectedRows(ids);
               }}
-              onCellEditCommit={(params) => {
-                if (params.field !== "estado") {
-                  setSelectedRows([...selectedRows, params.id]);
-
-                  let rowsNew = [...rows];
-                  let data = rowsNew.map((row) => {
-                    if (params.id === row.id) {
-                      return {
-                        ...row,
-                        [params.field]: params.value,
-                      };
-                    } else {
-                      return row;
-                    }
-                  });
-
-                  setRows(data);
-                }
-              }}
+              onCellEditCommit={onCellEditCommit}
               selectionModel={selectedRows}
               from="admin-cert"
               EmptyMessage="No hay datos"
