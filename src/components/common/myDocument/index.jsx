@@ -83,7 +83,7 @@ const MyDocument = ({
                               if (col.field === "estado") {
                                 return (
                                   <TableCell key={index}>
-                                    {row[col.field] === "0" ? "no" : "si"}
+                                    {row[col.field] ? "si" : "no"}
                                   </TableCell>
                                 );
                               }
