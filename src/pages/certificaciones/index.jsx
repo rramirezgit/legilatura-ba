@@ -33,7 +33,6 @@ import { colums } from "./columns";
 export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date());
   const [rows, setRows] = useState([]);
-  const [rowsInBorrador, setRowsInBorrador] = useState([]);
   const { user } = useContext(AuthContextTheme);
   const [selectedRows, setSelectedRows] = useState([]);
   const componentRef = useRef();
@@ -52,55 +51,40 @@ export default function Certificaciones() {
         })
       );
 
-      if (rowsInBorrador?.length > 0) {
-        const allEditMasterCertificationList = rowsInBorrador.map(
-          (idCerticicacion) => {
-            return editMasterCertificationList(idCerticicacion, {
-              id: idCerticicacion,
-              fechaCertificacion: new Date(),
-              fechaDecision: null,
-              estado: "I",
-              documentoPDF: stringContengPDF,
-            });
-          }
-        );
-
-        Promise.all(allEditMasterCertificationList).then((res) => {
-          if (res.length > 0) {
-            Promise.all(
-              rows.map((item) => {
-                let body = {
-                  id: item.id,
-                  horario: item.horario,
-                  novedad: item.novedad,
-                  estado: item.estado,
-                };
-
-                return editDetailCertificationList(item.id, body);
-              })
-            ).then((res) => {
-              if (res.length > 0) {
-                getMasterCertificationList({
-                  cuil: user.Cuil,
-                  periodo: new Date(periodo).toISOString().slice(0, 10),
-                  fnSetRows: setRows,
-                });
-              }
-            });
-          }
+      const allEditMasterCertificationList = rows.map((r) => {
+        return editMasterCertificationList(r.idCerticicacion, {
+          id: r.idCerticicacion,
+          fechaCertificacion: new Date(),
+          fechaDecision: null,
+          estado: "I",
+          documentoPDF: stringContengPDF,
         });
-      } else {
-        Swal.fire({
-          title: "Ya se encontraba firmado",
-          icon: "warning",
-          showCloseButton: true,
-          showCancelButton: false,
-          confirmButtonText: "Ok",
-          focusCancel: true,
-          confirmButtonAriaLabel: "Thumbs up, great!",
-          cancelButtonAriaLabel: "Thumbs down",
-        });
-      }
+      });
+
+      Promise.all(allEditMasterCertificationList).then((res) => {
+        if (res.length > 0) {
+          Promise.all(
+            rows.map((item) => {
+              let body = {
+                id: item.id,
+                horario: item.horario,
+                novedad: item.novedad,
+                estado: item.estado,
+              };
+
+              return editDetailCertificationList(item.id, body);
+            })
+          ).then((res) => {
+            if (res.length > 0) {
+              getMasterCertificationList({
+                cuil: user.Cuil,
+                periodo: new Date(periodo).toISOString().slice(0, 10),
+                fnSetRows: setRows,
+              });
+            }
+          });
+        }
+      });
     },
     onAfterPrint: () => {
       navigate("/");
@@ -178,19 +162,6 @@ export default function Certificaciones() {
       fnSetRows: setRows,
     });
   }, []);
-
-  useEffect(() => {
-    if (rows.length > 0) {
-      const idsCertificaciones = [
-        ...new Set(
-          rows
-            .filter((row) => row.estado === "B")
-            .map((row) => row.idCerticicacion)
-        ),
-      ];
-      setRowsInBorrador(idsCertificaciones);
-    }
-  }, [rows]);
 
   const onCellEditCommit = (params) => {
     let rowsNew = [...rows];
@@ -333,8 +304,7 @@ export default function Certificaciones() {
 
             {rows.length > 0 &&
               user.ProfileDesc === "Director" &&
-              new Date().getMonth() === new Date(periodo).getMonth() &&
-              rowsInBorrador.length > 0 && (
+              new Date().getMonth() === new Date(periodo).getMonth() && (
                 <Button
                   sx={{ float: "right", margin: "10px 5px" }}
                   variant="contained"
