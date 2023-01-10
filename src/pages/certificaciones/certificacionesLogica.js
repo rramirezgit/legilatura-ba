@@ -67,8 +67,8 @@ const getDetailsByIdList = async ({ data, periodo, fnSetRows }) => {
 const filtraPeriodo = (data, periodo) => {
   return data.filter(
     (item) =>
-      new Date(item.periodo).toISOString().slice(0, 10) ===
-      new Date(periodo).toISOString().slice(0, 10)
+      new Date(item.periodo).toISOString().slice(0, 7) ===
+      new Date(periodo).toISOString().slice(0, 7)
   );
 };
 
