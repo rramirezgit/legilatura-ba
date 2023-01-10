@@ -1,6 +1,6 @@
 import { DateRange } from "../../components/common/DateRange";
 
-export const colums = [
+export const colums = (editCertificado) => [
   {
     field: "idCerticicacion",
     width: 100,
@@ -45,6 +45,6 @@ export const colums = [
     field: "estado",
     headerName: "Certificado",
     type: "boolean",
-    editable: true,
+    editable: editCertificado,
   },
 ];

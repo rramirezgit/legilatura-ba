@@ -32,6 +32,7 @@ import { colums } from "./columns";
 
 export default function Certificaciones() {
   const [periodo, setPeriodo] = useState(new Date());
+  const [columnsData, setColumnsData] = useState([]);
   const [rows, setRows] = useState([]);
   const { user } = useContext(AuthContextTheme);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -161,6 +162,13 @@ export default function Certificaciones() {
       periodo,
       fnSetRows: setRows,
     });
+    setColumnsData(
+      colums(
+        user.ProfileDesc === "Asistente" || user.ProfileDesc === "Director"
+          ? true
+          : false
+      )
+    );
   }, []);
 
   const onCellEditCommit = (params) => {

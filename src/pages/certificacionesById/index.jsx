@@ -36,6 +36,7 @@ export default function Certificaciones() {
   const location = useLocation();
   const [rows, setRows] = useState([]);
   const { user } = useContext(AuthContextTheme);
+  const [columsData, setColumnsData] = useState([]);
   const [periodo, setPeriodo] = useState(new Date(location.state.data.periodo));
   const [selectedRows, setSelectedRows] = useState([]);
   const [state, setState] = useState(location.state.data.estado);
@@ -101,6 +102,13 @@ export default function Certificaciones() {
     }
 
     getDetailCertificationList(location.state.data.id, setRows);
+    setColumnsData(
+      colums(
+        user.ProfileDesc === "Asistente" || user.ProfileDesc === "Director"
+          ? true
+          : false
+      )
+    );
   }, [location.state.data]);
 
   const handleActionCertification = (value) => {
@@ -247,7 +255,7 @@ export default function Certificaciones() {
               selectionModel={selectedRows}
               EmptyMessage="No hay datos"
               from="admin-cert"
-              columns={colums}
+              columns={columsData}
               dataRows={rows}
               isCellEditable={(params) =>
                 permissions.canEdit && !params.row.estado
