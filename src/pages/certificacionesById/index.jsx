@@ -85,6 +85,17 @@ export default function Certificaciones() {
   });
 
   useEffect(() => {
+    setColumnsData(
+      /* solo certifica el director o asistente si el estado es difente este A o R */
+      colums(
+        location.state.data.estado !== "A" ||
+          (location.state.data.estado !== "R" &&
+            user.ProfileDesc === "Asistente") ||
+          user.ProfileDesc === "Director"
+          ? true
+          : false
+      )
+    );
     switch (location.state.data.estado) {
       case "B":
         setState("Borrador");
@@ -102,13 +113,6 @@ export default function Certificaciones() {
     }
 
     getDetailCertificationList(location.state.data.id, setRows);
-    setColumnsData(
-      colums(
-        user.ProfileDesc === "Asistente" || user.ProfileDesc === "Director"
-          ? true
-          : false
-      )
-    );
   }, [location.state.data]);
 
   const handleActionCertification = (value) => {

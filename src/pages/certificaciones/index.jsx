@@ -163,11 +163,10 @@ export default function Certificaciones() {
       fnSetRows: setRows,
     });
     setColumnsData(
-      colums(
-        user.ProfileDesc === "Asistente" || user.ProfileDesc === "Director"
-          ? true
-          : false
-      )
+      colums(user.ProfileDesc === "Asistente") ||
+        user.ProfileDesc === "Director"
+        ? true
+        : false
     );
   }, []);
 
