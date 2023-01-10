@@ -45,7 +45,7 @@ export const handleSave = ({ navigate, data, fnSetRows, periodo, cuil }) => {
             id: item.id,
             horario: item.horario,
             novedad: item.novedad,
-            estado: item.estado ? "1" : "0",
+            estado: "1",
           };
           return editDetailCertificationList(item.id, body);
         })

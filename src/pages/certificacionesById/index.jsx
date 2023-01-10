@@ -308,7 +308,7 @@ export default function Certificaciones() {
                   } else {
                     Swal.fire({
                       title:
-                        "Seleccione un detalle de certificación para guardar",
+                        "Seleccione un detalle de certificación para certificar",
                       icon: "warning",
                       showCloseButton: true,
                       showCancelButton: false,
@@ -318,7 +318,7 @@ export default function Certificaciones() {
                   }
                 }}
               >
-                Guardar
+                Certificar Seleccionados
               </Button>
             )}
           </Paper>
